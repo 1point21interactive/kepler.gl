@@ -233,6 +233,7 @@ export default {
       export: 'Vie',
       addStyle: 'Lisää tyyli',
       save: 'Tallenna',
+      publish: 'julkaista',
       defaultCancel: 'Peru',
       defaultConfirm: 'Vahvista'
     },

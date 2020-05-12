@@ -128,6 +128,7 @@ const ActionTypes = keyMirror({
   SHOW_EXPORT_DROPDOWN: null,
   HIDE_EXPORT_DROPDOWN: null,
   OPEN_DELETE_MODAL: null,
+  OPEN_COPY_IFRAME_URL_MODAL: null,
   TOGGLE_MAP_CONTROL: null,
   ADD_NOTIFICATION: null,
   REMOVE_NOTIFICATION: null,
@@ -150,6 +151,7 @@ const ActionTypes = keyMirror({
   SET_EXPORT_MAP_FORMAT: null,
   SET_USER_MAPBOX_ACCESS_TOKEN: null,
   SET_EXPORT_MAP_HTML_MODE: null,
+  SET_EXPORT_IFRAME_URL: null,
 
   // uiState > editor
   SET_EDITOR_MODE: null,

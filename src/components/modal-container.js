@@ -27,7 +27,14 @@ import get from 'lodash.get';
 
 import ModalDialogFactory from './modals/modal-dialog';
 import KeplerGlSchema from 'schemas';
-import {exportJson, exportHtml, exportData, exportImage, exportMap} from 'utils/export-utils';
+import {
+  exportJson,
+  exportHtml,
+  exportData,
+  exportImage,
+  exportMap,
+  publishHtml
+} from 'utils/export-utils';
 import {isValidMapInfo} from 'utils/map-info-utils';
 
 // modals
@@ -41,6 +48,7 @@ import ExportMapModalFactory from './modals/export-map-modal/export-map-modal';
 import AddMapStyleModalFactory from './modals/add-map-style-modal';
 import SaveMapModalFactory from './modals/save-map-modal';
 import ShareMapModalFactory from './modals/share-map-modal';
+import CopyIframeModalFactory from './modals/copy-iframe-modal';
 
 // Breakpoints
 import {media} from 'styles/media-breakpoints';
@@ -56,7 +64,8 @@ import {
   ADD_MAP_STYLE_ID,
   SAVE_MAP_ID,
   SHARE_MAP_ID,
-  OVERWRITE_MAP_ID
+  OVERWRITE_MAP_ID,
+  COPY_IFRAME_URL
 } from 'constants/default-settings';
 import {EXPORT_MAP_FORMATS} from '../constants/default-settings';
 
@@ -99,7 +108,8 @@ ModalContainerFactory.deps = [
   AddMapStyleModalFactory,
   ModalDialogFactory,
   SaveMapModalFactory,
-  ShareMapModalFactory
+  ShareMapModalFactory,
+  CopyIframeModalFactory
 ];
 
 export default function ModalContainerFactory(
@@ -113,7 +123,8 @@ export default function ModalContainerFactory(
   AddMapStyleModal,
   ModalDialog,
   SaveMapModal,
-  ShareMapModal
+  ShareMapModal,
+  CopyIframeModal
 ) {
   class ModalWrapper extends Component {
     static propTypes = {
@@ -173,7 +184,8 @@ export default function ModalContainerFactory(
     _onExportMap = () => {
       const {uiState} = this.props;
       const {format} = uiState.exportMap;
-      (format === EXPORT_MAP_FORMATS.HTML ? exportHtml : exportJson)(
+
+      (format === EXPORT_MAP_FORMATS.HTML ? publishHtml : exportJson)(
         this.props,
         this.props.uiState.exportMap[format] || {}
       );
@@ -387,8 +399,16 @@ export default function ModalContainerFactory(
               onConfirm: this._onExportMap,
               confirmButton: {
                 large: true,
-                children: 'modal.button.export'
+                children: 'modal.button.publish'
               }
+            };
+            break;
+          case COPY_IFRAME_URL:
+            template = <CopyIframeModal />;
+            modalProps = {
+              title: 'modal.title.exportMap',
+              footer: true,
+              onCancel: this._closeModal
             };
             break;
           case ADD_MAP_STYLE_ID:

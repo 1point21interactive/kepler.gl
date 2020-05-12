@@ -99,6 +99,13 @@ export const ADD_MAP_STYLE_ID = 'addMapStyle';
  */
 export const EXPORT_MAP_ID = 'exportMap';
 /**
+ * Modal id: copy iframe url
+ * @constant
+ * @type {string}
+ * @public
+ */
+export const COPY_IFRAME_URL = 'copyIframeUrl';
+/**
  * Modal id: save map modal
  * @constant
  * @type {string}

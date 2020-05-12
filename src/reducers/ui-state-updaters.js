@@ -26,7 +26,8 @@ import {
   EXPORT_HTML_MAP_MODES,
   EXPORT_IMG_RATIOS,
   EXPORT_MAP_FORMATS,
-  RESOLUTIONS
+  RESOLUTIONS,
+  COPY_IFRAME_URL
 } from 'constants/default-settings';
 import {LOCALE_CODES} from 'localization/locales';
 import {createNotification, errorNotification} from 'utils/notifications-utils';
@@ -228,7 +229,9 @@ export const INITIAL_UI_STATE = {
   // load files
   loadFiles: DEFAULT_LOAD_FILES,
   // Locale of the UI
-  locale: LOCALE_CODES.en
+  locale: LOCALE_CODES.en,
+  // iframe url
+  iframeUrl: null
 };
 
 /* Updaters */
@@ -337,6 +340,11 @@ export const openDeleteModalUpdater = (state, {payload: datasetKeyToRemove}) => 
   ...state,
   currentModal: DELETE_DATA_ID,
   datasetKeyToRemove
+});
+
+export const openCopyIframeUrlModalUpdater = (state, {payload}) => ({
+  ...state,
+  currentModel: COPY_IFRAME_URL
 });
 
 /**
@@ -653,4 +661,14 @@ export const toggleSplitMapUpdater = state => ({
 export const setLocaleUpdater = (state, {payload: {locale}}) => ({
   ...state,
   locale
+});
+
+/**
+ * Set the iframeUrl
+ * @param {Object} state `uiState`
+ * @param {Object} action
+ */
+export const setIframeUrlUpdater = (state, {payload: {iframeUrl}}) => ({
+  ...state,
+  iframeUrl
 });

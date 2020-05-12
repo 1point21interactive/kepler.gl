@@ -32,6 +32,7 @@ const actionHandler = {
   [ActionTypes.SHOW_EXPORT_DROPDOWN]: uiStateUpdaters.showExportDropdownUpdater,
   [ActionTypes.HIDE_EXPORT_DROPDOWN]: uiStateUpdaters.hideExportDropdownUpdater,
   [ActionTypes.OPEN_DELETE_MODAL]: uiStateUpdaters.openDeleteModalUpdater,
+  [ActionTypes.OPEN_COPY_IFRAME_URL_MODAL]: uiStateUpdaters.openCopyIframeUrlModalUpdater,
   [ActionTypes.TOGGLE_MAP_CONTROL]: uiStateUpdaters.toggleMapControlUpdater,
   [ActionTypes.ADD_NOTIFICATION]: uiStateUpdaters.addNotificationUpdater,
   [ActionTypes.REMOVE_NOTIFICATION]: uiStateUpdaters.removeNotificationUpdater,
@@ -55,7 +56,8 @@ const actionHandler = {
   [ActionTypes.LOAD_FILES_ERR]: uiStateUpdaters.loadFilesErrUpdater,
 
   [ActionTypes.TOGGLE_SPLIT_MAP]: uiStateUpdaters.toggleSplitMapUpdater,
-  [ActionTypes.SET_LOCALE]: uiStateUpdaters.setLocaleUpdater
+  [ActionTypes.SET_LOCALE]: uiStateUpdaters.setLocaleUpdater,
+  [ActionTypes.SET_EXPORT_IFRAME_URL]: uiStateUpdaters.setIframeUrlUpdater
 };
 
 /* Reducer */

@@ -78,6 +78,7 @@ export const toggleMapControl = createAction(ActionTypes.TOGGLE_MAP_CONTROL, (pa
  */
 export const openDeleteModal = createAction(ActionTypes.OPEN_DELETE_MODAL, datasetId => datasetId);
 
+export const openCopyIframeModal = createAction(ActionTypes.OPEN_COPY_IFRAME_URL_MODAL, () => {});
 /**
  * Add a notification to be displayed
  * @memberof uiStateActions
@@ -212,6 +213,8 @@ export const setExportHTMLMapMode = createAction(
 export const setLocale = createAction(ActionTypes.SET_LOCALE, locale => ({
   locale
 }));
+
+export const setIframeUrl = createAction(ActionTypes.SET_EXPORT_IFRAME_URL, payload => payload);
 
 /**
  * This declaration is needed to group actions in docs

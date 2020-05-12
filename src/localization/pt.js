@@ -234,6 +234,7 @@ export default {
       export: 'Exportar',
       addStyle: 'Adicionar Estilo',
       save: 'Salvar',
+      publish: 'Publicar',
       defaultCancel: 'Cancelar',
       defaultConfirm: 'Confirmar'
     },

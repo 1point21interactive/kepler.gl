@@ -233,6 +233,7 @@ export default {
       export: 'Export',
       addStyle: 'Add Style',
       save: 'Save',
+      publish: 'Publish',
       defaultCancel: 'Cancel',
       defaultConfirm: 'Confirm'
     },

@@ -231,6 +231,7 @@ export default {
       delete: 'Esborra',
       download: 'Descarrega',
       export: 'Exporta',
+      publish: 'Publicar',
       addStyle: 'Afegeix estil',
       save: 'Desa',
       defaultCancel: 'Cancel·la',

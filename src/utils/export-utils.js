@@ -25,12 +25,14 @@ import {
   EXPORT_IMG_RATIO_OPTIONS,
   RESOLUTIONS,
   EXPORT_IMG_RATIOS,
-  EXPORT_DATA_TYPE
+  EXPORT_DATA_TYPE,
+  COPY_IFRAME_URL
 } from 'constants/default-settings';
 import {exportMapToHTML} from 'templates/export-map-html';
 import {formatCsv} from 'processors/data-processor';
 import get from 'lodash.get';
 import {set, generateHashId} from 'utils/utils';
+import * as UIStateActions from 'actions/ui-state-actions';
 
 import KeplerGlSchema from 'schemas';
 
@@ -184,9 +186,58 @@ export function exportHtml(state, options) {
       (userMapboxToken || '') !== '' ? userMapboxToken : exportMapboxAccessToken,
     mode
   };
-
   const fileBlob = new Blob([exportMapToHTML(data)], {type: 'text/html'});
+
   downloadFile(fileBlob, DEFAULT_HTML_NAME);
+}
+
+export async function publishHtml(state, options) {
+  const {userMapboxToken, exportMapboxAccessToken, mode} = options;
+
+  const data = {
+    ...getMapJSON(state),
+    mapboxApiAccessToken:
+      (userMapboxToken || '') !== '' ? userMapboxToken : exportMapboxAccessToken,
+    mode
+  };
+  const html = exportMapToHTML(data);
+  const response = await fetch('https://tools.1point21interactive.com/maps/', {
+    method: 'post',
+    body: JSON.stringify({
+      filename: 'Keplar GL Map',
+      html
+    }),
+    headers: new Headers({'content-type': 'application/json'})
+  });
+  const iframeData = await response.json();
+  // const iframeData = {
+  //   iframeUrl: 'www.google.com'
+  // };
+  const container = document.createElement('div');
+  container.style.cssText =
+    'position: fixed; width: 100%; height: 100%; display: flex; justify-content: center; align-items:center; z-index: 99999;';
+
+  document.body.append(container);
+
+  const iframeModal = document.createElement('div');
+  iframeModal.style.cssText =
+    'padding: 24px; border-radius: 4px; background: white; box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);';
+  container.append(iframeModal);
+  const title = document.createElement('h1');
+  title.textContent = 'Import this iframe';
+  iframeModal.append(title);
+  const textArea = document.createElement('textarea');
+  textArea.style.cssText =
+    'background: #f4f4f4; border: 1px solid #ddd; border-left: 3px solid #f36d33; color: #666; page-break-inside: avoid; font-family: monospace;     font-size: 15px; line-height: 1.6; padding: 1em 1.5em; width: 500px; height: 130px; outline: 0;';
+  textArea.textContent = `<style>.embed-container { position: relative; padding-bottom: 80.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
+  <div class="embed-container"><iframe style="border: none;" src="${iframeData.iframeUrl}" frameborder="0" scrolling="no"></iframe></div>`;
+  iframeModal.append(textArea);
+  const close = document.createElement('button');
+  close.textContent = 'Done';
+  close.addEventListener('click', () => {
+    container.remove();
+  });
+  iframeModal.append(close);
 }
 
 export function exportData(state, option) {
@@ -237,6 +288,7 @@ const exporters = {
   exportImage,
   exportJson,
   exportHtml,
+  publishHtml,
   exportData
 };
 
