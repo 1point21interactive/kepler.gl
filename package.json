@@ -28,7 +28,7 @@
     "test": "npm run lint && npm run test-node && npm run test-browser",
     "cover": "nyc --reporter html --reporter cobertura --reporter json-summary npm test && nyc report",
     "coveralls": "nyc npm test && nyc report --reporter cobertura --reporter=text-lcov | coveralls",
-    "start": "npm run install-and-start -- examples/demo-app start-prod",
+    "start": "npm run install-and-start -- examples/demo-app start",
     "start:deck": "npm run install-and-start -- examples/demo-app start-local-deck",
     "start:deck-src": "npm run install-and-start -- examples/demo-app start-local-deck-src",
     "start:open-modal": "npm run install-and-start -- examples/open-modal start-prod",
