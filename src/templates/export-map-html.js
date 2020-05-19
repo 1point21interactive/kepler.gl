@@ -43,22 +43,18 @@ export const exportMapToHTML = (options, version = KEPLER_GL_VERSION) => {
         <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.css" rel="stylesheet">
 
         <!-— facebook open graph tags -->
-        <meta property="og:url" content="http://kepler.gl/" />
-        <meta property="og:title" content="Large-scale WebGL-powered Geospatial Data Visualization Tool" />
-        <meta property="og:description" content="Kepler.gl is a powerful web-based geospatial data analysis tool. Built on a high performance rendering engine and designed for large-scale data sets." />
-        <meta property="og:site_name" content="kepler.gl" />
-        <meta property="og:image" content="https://d1a3f4spazzrp4.cloudfront.net/kepler.gl/kepler.gl-meta-tag.png" />
+        <meta property="og:url" content="http://keplergl.1point21interactive.com/" />
+        <meta property="og:title" content="Mapping Visualization Tool" />
+        <meta property="og:description" content="Create and publish interactive maps. />
+        <meta property="og:site_name" content="1point21 Maps" />
+        <meta property="og:image" content="https://www.1point21interactive.com/maps/images/kepmapex.jpg" />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="800" />
-        <meta property="og:image:height" content="800" />
-
-        <!-— twitter card tags -->
+        <meta property="og:image:height" content="800" />        <!-— twitter card tags -->
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:site" content="@uber">
-        <meta name="twitter:creator" content="@uber">
-        <meta name="twitter:title" content="Large-scale WebGL-powered Geospatial Data Visualization Tool">
-        <meta name="twitter:description" content="Kepler.gl is a powerful web-based geospatial data analysis tool. Built on a high performance rendering engine and designed for large-scale data sets.">
-        <meta name="twitter:image" content="https://d1a3f4spazzrp4.cloudfront.net/kepler.gl/kepler.gl-meta-tag.png" />
+        <meta name="twitter:title" content="Mapping Visualization Tool">
+        <meta name="twitter:description" content="Create and publish interactive maps.
+        <meta name="twitter:image" content="https://www.1point21interactive.com/maps/images/kepmapex.jpg" />
 
         <!-- Load React/Redux -->
         <script src="https://unpkg.com/react@16.8.4/umd/react.production.min.js" crossorigin></script>
