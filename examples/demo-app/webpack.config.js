@@ -22,6 +22,7 @@
 // delete the local development overrides at the bottom of this file
 
 // avoid destructuring for older Node version support
+require('dotenv').config();
 const resolve = require('path').resolve;
 const join = require('path').join;
 const webpack = require('webpack');

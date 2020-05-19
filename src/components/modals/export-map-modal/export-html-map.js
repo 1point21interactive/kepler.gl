@@ -64,13 +64,15 @@ const BigStyledTile = styled(StyledType)`
 
 const exportHtmlPropTypes = {
   options: PropTypes.object,
-  onEditUserMapboxAccessToken: PropTypes.func.isRequired
+  onEditUserMapboxAccessToken: PropTypes.func.isRequired,
+  onEditMapTitle: PropTypes.func.isRequired
 };
 
 const ExportHtmlMap = React.memo(
   ({
     onChangeExportMapHTMLMode = NO_OP,
     onEditUserMapboxAccessToken = NO_OP,
+    onEditMapTitle = NO_OP,
     options = {},
     intl
   }) => (
@@ -106,6 +108,24 @@ const ExportHtmlMap = React.memo(
               <FormattedMessage id={'modal.exportMap.html.tokenUpdate'} />
             </ExportMapLink>
           </div>
+        </div>
+      </ExportMapStyledExportSection>
+      <ExportMapStyledExportSection>
+        <div className="description">
+          <div className="title">
+            <FormattedMessage id={'modal.exportMap.html.mapTitle'}></FormattedMessage>
+          </div>
+          <div className="subtitle">
+            <FormattedMessage id={'modal.exportMap.html.mapTitleSubtitle'}></FormattedMessage>
+          </div>
+        </div>
+        <div className="selection">
+          <StyledInput
+            onChange={e => onEditMapTitle(e.target.value)}
+            value={options ? options.mapTitle : ''}
+            type="text"
+            placeholder="Enter the title of your map"
+          ></StyledInput>
         </div>
       </ExportMapStyledExportSection>
       <ExportMapStyledExportSection>

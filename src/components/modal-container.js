@@ -389,6 +389,7 @@ export default function ModalContainerFactory(
                 options={uiState.exportMap}
                 onChangeExportMapFormat={uiStateActions.setExportMapFormat}
                 onEditUserMapboxAccessToken={uiStateActions.setUserMapboxAccessToken}
+                onEditMapTitle={uiStateActions.setMapTitle}
                 onChangeExportMapHTMLMode={uiStateActions.setExportHTMLMapMode}
               />
             );

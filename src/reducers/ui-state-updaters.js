@@ -181,6 +181,7 @@ export const DEFAULT_NOTIFICATIONS = [];
 export const DEFAULT_EXPORT_HTML = {
   exportMapboxAccessToken: null,
   userMapboxToken: '',
+  mapTitle: '',
   mode: EXPORT_HTML_MAP_MODES.READ
 };
 
@@ -511,6 +512,17 @@ export const setUserMapboxAccessTokenUpdater = (state, {payload: userMapboxToken
     [EXPORT_MAP_FORMATS.HTML]: {
       ...state.exportMap[EXPORT_MAP_FORMATS.HTML],
       userMapboxToken
+    }
+  }
+});
+
+export const setMapTitleUpdater = (state, {payload: mapTitle}) => ({
+  ...state,
+  exportMap: {
+    ...state.exportMap,
+    [EXPORT_MAP_FORMATS.HTML]: {
+      ...state.exportMap[EXPORT_MAP_FORMATS.HTML],
+      mapTitle
     }
   }
 });

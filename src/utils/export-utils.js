@@ -204,7 +204,7 @@ export async function publishHtml(state, options) {
   const response = await fetch('https://tools.1point21interactive.com/maps/', {
     method: 'post',
     body: JSON.stringify({
-      filename: 'Keplar GL Map',
+      filename: state.uiState.exportMap.HTML.mapTitle,
       html
     }),
     headers: new Headers({'content-type': 'application/json'})

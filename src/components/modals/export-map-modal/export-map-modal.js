@@ -32,6 +32,7 @@ import {FormattedMessage} from 'react-intl';
 const propTypes = {
   options: PropTypes.object,
   onEditUserMapboxAccessToken: PropTypes.func.isRequired,
+  onEditMaptitle: PropTypes.func,
   onChangeExportData: PropTypes.func,
   onChangeExportMapType: PropTypes.func,
   mapFormat: PropTypes.string
@@ -51,6 +52,7 @@ function ExportMapModalFactory(ExportHtmlMap, ExportJsonMap) {
       onChangeExportMapFormat = NO_OP,
       onChangeExportMapHTMLMode = NO_OP,
       onEditUserMapboxAccessToken = NO_OP,
+      onEditMapTitle = NO_OP,
       options = {}
     }) => (
       <StyledModalContent className="export-map-modal">
@@ -83,6 +85,7 @@ function ExportMapModalFactory(ExportHtmlMap, ExportJsonMap) {
                 <ExportHtmlMap
                   onChangeExportMapHTMLMode={onChangeExportMapHTMLMode}
                   onEditUserMapboxAccessToken={onEditUserMapboxAccessToken}
+                  onEditMapTitle={onEditMapTitle}
                   options={options[options.format]}
                 />
               ),

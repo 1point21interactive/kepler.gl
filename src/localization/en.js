@@ -306,6 +306,9 @@ export default {
         selection: 'Export your map into an interactive html file.',
         tokenTitle: 'Mapbox access token',
         tokenSubtitle: 'Use your own Mapbox access token in the html (optional)',
+        mapTitle: 'Map Title',
+        mapTitleSubtitle:
+          'This is the name of your map and will be used within the url string of the exported map',
         tokenPlaceholder: 'Paste your Mapbox access token',
         tokenMisuseWarning:
           '* If you do not provide your own token, the map may fail to display at any time when we replace ours to avoid misuse. ',
