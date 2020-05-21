@@ -265,6 +265,41 @@ export const DEFAULT_MAP_STYLES = [
     label: 'Satellite',
     url: `mapbox://styles/mapbox/satellite-v9`,
     icon: `${ICON_PREFIX}/UBER_SATELLITE.png`
+  },
+  {
+    id: 'black_and_blue',
+    label: 'Black and Blue',
+    url: `mapbox://styles/highrankwebsites/cjk19z57a7q442rlw5cxtymrc`,
+    icon: 'https://i.imgur.com/QLktuXR.png',
+    layerGroups: DEFAULT_LAYER_GROUPS
+  },
+  {
+    id: 'thomas_guide',
+    label: 'Thomas Guide',
+    url: `mapbox://styles/highrankwebsites/cjf6xubqe1t4a2rp0l3b2lhl2`,
+    icon: 'https://i.imgur.com/xWCz0I9.png',
+    layerGroups: DEFAULT_LAYER_GROUPS
+  },
+  {
+    id: 'go_green',
+    label: 'Go Green',
+    url: `mapbox://styles/highrankwebsites/cjf6xxdox2vpi2qpalpcy9f86`,
+    icon: 'https://i.imgur.com/61GFqMm.png',
+    layerGroups: DEFAULT_LAYER_GROUPS
+  },
+  {
+    id: 'blue_steel',
+    label: 'Blue Steel',
+    url: `mapbox://styles/highrankwebsites/cjdyqyj9x4h6g2rn0pvz8pdwd`,
+    icon: 'https://i.imgur.com/JOmKJjw.png',
+    layerGroups: DEFAULT_LAYER_GROUPS
+  },
+  {
+    id: 'green_lantern',
+    label: 'Green Lantern',
+    url: `mapbox://styles/highrankwebsites/cjee8ckck14392tmuxqxh6kq6`,
+    icon: 'https://i.imgur.com/xQlRbnm.png',
+    layerGroups: DEFAULT_LAYER_GROUPS
   }
 ];
 
