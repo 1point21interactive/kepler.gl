@@ -29,12 +29,13 @@ import {KEPLER_GL_VERSION, EXPORT_HTML_MAP_MODES} from 'constants/default-settin
  * @param {string} version which version of Kepler.gl to load.
  */
 export const exportMapToHTML = (options, version = KEPLER_GL_VERSION) => {
+  console.log(options);
   return `
     <!DOCTYPE html>
     <html>
       <head>
         <meta charset="UTF-8"/>
-        <title>Kepler.gl embedded map</title>
+        <title>${options.meta.title}</title>
 
         <!--Uber Font-->
         <link rel="stylesheet" href="https://d1a3f4spazzrp4.cloudfront.net/kepler.gl/uber-fonts/4.0.0/superfine.css">
@@ -44,17 +45,17 @@ export const exportMapToHTML = (options, version = KEPLER_GL_VERSION) => {
 
         <!-— facebook open graph tags -->
         <meta property="og:url" content="http://keplergl.1point21interactive.com/" />
-        <meta property="og:title" content="Mapping Visualization Tool" />
-        <meta property="og:description" content="Create and publish interactive maps. />
+        <meta property="og:title" content="${options.meta.title}" />
+        <meta property="og:description" content="${options.meta.description}" />
         <meta property="og:site_name" content="1point21 Maps" />
-        <meta property="og:image" content="https://www.1point21interactive.com/maps/images/kepmapex.jpg" />
+        <meta property="og:image" content="${options.meta.image}" />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="800" />
         <meta property="og:image:height" content="800" />        <!-— twitter card tags -->
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Mapping Visualization Tool">
-        <meta name="twitter:description" content="Create and publish interactive maps.
-        <meta name="twitter:image" content="https://www.1point21interactive.com/maps/images/kepmapex.jpg" />
+        <meta name="twitter:title" content=${options.meta.title}">
+        <meta name="twitter:description" content="${options.meta.description}".
+        <meta name="twitter:image" content="${options.meta.image}" />
 
         <!-- Load React/Redux -->
         <script src="https://unpkg.com/react@16.8.4/umd/react.production.min.js" crossorigin></script>

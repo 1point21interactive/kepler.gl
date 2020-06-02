@@ -184,7 +184,15 @@ export const setUserMapboxAccessToken = createAction(
   payload => payload
 );
 
+/**
+ *
+ */
 export const setMapTitle = createAction(ActionTypes.SET_MAP_TITLE, payload => payload);
+
+/**
+ *
+ */
+export const setMapDescription = createAction(ActionTypes.SET_MAP_DESCRIPTION, payload => payload);
 
 /**
  * Set the export map format (html, json)

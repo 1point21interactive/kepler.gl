@@ -33,6 +33,7 @@ const propTypes = {
   options: PropTypes.object,
   onEditUserMapboxAccessToken: PropTypes.func.isRequired,
   onEditMaptitle: PropTypes.func,
+  onEditMapDescription: PropTypes.func,
   onChangeExportData: PropTypes.func,
   onChangeExportMapType: PropTypes.func,
   mapFormat: PropTypes.string
@@ -53,6 +54,7 @@ function ExportMapModalFactory(ExportHtmlMap, ExportJsonMap) {
       onChangeExportMapHTMLMode = NO_OP,
       onEditUserMapboxAccessToken = NO_OP,
       onEditMapTitle = NO_OP,
+      onEditMapDescription = NO_OP,
       options = {}
     }) => (
       <StyledModalContent className="export-map-modal">
@@ -86,6 +88,7 @@ function ExportMapModalFactory(ExportHtmlMap, ExportJsonMap) {
                   onChangeExportMapHTMLMode={onChangeExportMapHTMLMode}
                   onEditUserMapboxAccessToken={onEditUserMapboxAccessToken}
                   onEditMapTitle={onEditMapTitle}
+                  onEditMapDescription={onEditMapDescription}
                   options={options[options.format]}
                 />
               ),

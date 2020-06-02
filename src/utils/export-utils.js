@@ -193,14 +193,19 @@ export function exportHtml(state, options) {
 
 export async function publishHtml(state, options) {
   const {userMapboxToken, exportMapboxAccessToken, mode} = options;
-
   const data = {
     ...getMapJSON(state),
+    meta: {
+      title: state.uiState.exportMap.HTML.mapTitle,
+      description: state.uiState.exportMap.HTML.description
+    },
     mapboxApiAccessToken:
       (userMapboxToken || '') !== '' ? userMapboxToken : exportMapboxAccessToken,
     mode
   };
+  console.log(data);
   const html = exportMapToHTML(data);
+
   const response = await fetch('https://tools.1point21interactive.com/maps/', {
     method: 'post',
     body: JSON.stringify({
@@ -210,9 +215,7 @@ export async function publishHtml(state, options) {
     headers: new Headers({'content-type': 'application/json'})
   });
   const iframeData = await response.json();
-  // const iframeData = {
-  //   iframeUrl: 'www.google.com'
-  // };
+
   const container = document.createElement('div');
   container.style.cssText =
     'position: fixed; width: 100%; height: 100%; display: flex; justify-content: center; align-items:center; z-index: 99999;';

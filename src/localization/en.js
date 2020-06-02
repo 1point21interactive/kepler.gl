@@ -309,6 +309,9 @@ export default {
         mapTitle: 'Map Title',
         mapTitleSubtitle:
           'This is the name of your map and will be used within the url string of the exported map',
+        mapDescription: 'Map Description',
+        mapDescriptionSubtitle: 'Meta Description',
+
         tokenPlaceholder: 'Paste your Mapbox access token',
         tokenMisuseWarning:
           '* If you do not provide your own token, the map may fail to display at any time when we replace ours to avoid misuse. ',

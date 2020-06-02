@@ -65,7 +65,8 @@ const BigStyledTile = styled(StyledType)`
 const exportHtmlPropTypes = {
   options: PropTypes.object,
   onEditUserMapboxAccessToken: PropTypes.func.isRequired,
-  onEditMapTitle: PropTypes.func.isRequired
+  onEditMapTitle: PropTypes.func.isRequired,
+  onEditMapDescription: PropTypes.func.isRequired
 };
 
 const ExportHtmlMap = React.memo(
@@ -73,6 +74,7 @@ const ExportHtmlMap = React.memo(
     onChangeExportMapHTMLMode = NO_OP,
     onEditUserMapboxAccessToken = NO_OP,
     onEditMapTitle = NO_OP,
+    onEditMapDescription = NO_OP,
     options = {},
     intl
   }) => (
@@ -131,6 +133,28 @@ const ExportHtmlMap = React.memo(
       <ExportMapStyledExportSection>
         <div className="description">
           <div className="title">
+            <FormattedMessage id={'modal.exportMap.html.mapDescription'}></FormattedMessage>
+          </div>
+          <div className="subtitle">
+            <FormattedMessage id={'modal.exportMap.html.mapDescriptionSubtitle'}></FormattedMessage>
+          </div>
+        </div>
+        <div className="selection">
+          <StyledInput
+            onChange={e => onEditMapDescription(e.target.value)}
+            value={options ? options.mapDescription : ''}
+            type="text"
+            placeholder="Enter the description of your map"
+          ></StyledInput>
+        </div>
+      </ExportMapStyledExportSection>
+
+      {/* 
+        ALL EXPORTED MAPS ARE READ ONLY
+      
+      <ExportMapStyledExportSection>
+        <div className="description">
+          <div className="title">
             <FormattedMessage id={'modal.exportMap.html.modeTitle'} />
           </div>
           <div className="subtitle">
@@ -158,7 +182,7 @@ const ExportHtmlMap = React.memo(
             </BigStyledTile>
           ))}
         </div>
-      </ExportMapStyledExportSection>
+      </ExportMapStyledExportSection> */}
     </div>
   )
 );

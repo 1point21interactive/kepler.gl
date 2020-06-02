@@ -182,6 +182,7 @@ export const DEFAULT_EXPORT_HTML = {
   exportMapboxAccessToken: null,
   userMapboxToken: '',
   mapTitle: '',
+  mapDescription: '',
   mode: EXPORT_HTML_MAP_MODES.READ
 };
 
@@ -516,6 +517,11 @@ export const setUserMapboxAccessTokenUpdater = (state, {payload: userMapboxToken
   }
 });
 
+/**
+ *
+ * @param {*} state
+ * @param {*} param1
+ */
 export const setMapTitleUpdater = (state, {payload: mapTitle}) => ({
   ...state,
   exportMap: {
@@ -523,6 +529,22 @@ export const setMapTitleUpdater = (state, {payload: mapTitle}) => ({
     [EXPORT_MAP_FORMATS.HTML]: {
       ...state.exportMap[EXPORT_MAP_FORMATS.HTML],
       mapTitle
+    }
+  }
+});
+
+/**
+ *
+ * @param {*} state
+ * @param {*} param1
+ */
+export const setMapDescriptionUpdater = (state, {payload: mapDescription}) => ({
+  ...state,
+  exportMap: {
+    ...state.exportMap,
+    [EXPORT_MAP_FORMATS.HTML]: {
+      ...state.exportMap[EXPORT_MAP_FORMATS.HTML],
+      mapDescription
     }
   }
 });

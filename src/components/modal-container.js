@@ -383,6 +383,8 @@ export default function ModalContainerFactory(
               mapState,
               uiState
             });
+            console.log(uiStateActions.setMapTitle);
+            console.log(uiStateActions.setMapDescription);
             template = (
               <ExportMapModal
                 config={keplerGlConfig}
@@ -390,6 +392,7 @@ export default function ModalContainerFactory(
                 onChangeExportMapFormat={uiStateActions.setExportMapFormat}
                 onEditUserMapboxAccessToken={uiStateActions.setUserMapboxAccessToken}
                 onEditMapTitle={uiStateActions.setMapTitle}
+                onEditMapDescription={uiStateActions.setMapDescription}
                 onChangeExportMapHTMLMode={uiStateActions.setExportHTMLMapMode}
               />
             );
