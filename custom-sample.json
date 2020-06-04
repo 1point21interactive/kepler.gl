@@ -3,7 +3,7 @@
     "id": "usstates",
     "label": "US States",
     "queryType": "sample",
-    "imageUrl": "https://s3.amazonaws.com/uber-static/kepler.gl/sample/world_flight_s.png",
+    "imageUrl": "https://map-images.sfo2.digitaloceanspaces.com/united_states.PNG",
     "description": "",
     "detail": "",
     "size": 100,
