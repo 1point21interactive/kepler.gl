@@ -23,12 +23,13 @@ and segments both use queryRunner */
 import keyMirror from 'keymirror';
 
 export const ASSETS_URL = 'https://d1a3f4spazzrp4.cloudfront.net/kepler.gl/';
-export const DATA_URL = 'https://raw.githubusercontent.com/uber-web/kepler.gl-data/master/';
+// export const DATA_URL = 'https://raw.githubusercontent.com/uber-web/kepler.gl-data/master/';
+export const DATA_URL = `https://raw.githubusercontent.com/1point21interactive/kepler.gl/1point21/`;
 export const MAP_URI = 'demo/map?mapUrl=';
 /*
  * If you want to add more samples, feel free to edit the json file on github kepler.gl data repo
  */
-export const MAP_CONFIG_URL = `${DATA_URL}samples.json?nocache=${new Date().getTime()}`;
+export const MAP_CONFIG_URL = `${DATA_URL}custom-sample.json?nocache=${new Date().getTime()}`;
 
 /**
  * I know this is already defined in Kepler core but it should be defined here

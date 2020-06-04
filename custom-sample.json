@@ -1,5 +1,17 @@
 [
   {
+    "id": "usstates",
+    "label": "US States",
+    "queryType": "sample",
+    "imageUrl": "https://s3.amazonaws.com/uber-static/kepler.gl/sample/world_flight_s.png",
+    "description": "",
+    "detail": "",
+    "size": 100,
+    "visible": "true",
+    "dataUrl": "https://map-images.sfo2.digitaloceanspaces.com/US_States.json",
+    "configUrl": "https://raw.githubusercontent.com/uber-web/kepler.gl-data/master/world_flights/config_soei4h.json"
+  },
+  {
     "id": "world_flights",
     "label": "All the Flights in the World",
     "queryType": "sample",
