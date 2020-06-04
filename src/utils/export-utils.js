@@ -216,7 +216,7 @@ export async function publishHtml(state, options) {
     ...getMapJSON(state),
     meta: {
       title: state.uiState.exportMap.HTML.mapTitle,
-      description: state.uiState.exportMap.HTML.description,
+      description: state.uiState.exportMap.HTML.mapDescription,
       image: imageUrl
     },
     mapboxApiAccessToken:
