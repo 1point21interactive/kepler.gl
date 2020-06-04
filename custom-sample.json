@@ -8,8 +8,7 @@
     "detail": "",
     "size": 100,
     "visible": "true",
-    "dataUrl": "https://map-images.sfo2.digitaloceanspaces.com/US_States.json",
-    "configUrl": "https://raw.githubusercontent.com/uber-web/kepler.gl-data/master/world_flights/config_soei4h.json"
+    "dataUrl": "https://map-images.sfo2.digitaloceanspaces.com/US_States.json"
   },
   {
     "id": "world_flights",
