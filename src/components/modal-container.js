@@ -383,8 +383,6 @@ export default function ModalContainerFactory(
               mapState,
               uiState
             });
-            console.log(uiStateActions.setMapTitle);
-            console.log(uiStateActions.setMapDescription);
             template = (
               <ExportMapModal
                 config={keplerGlConfig}
