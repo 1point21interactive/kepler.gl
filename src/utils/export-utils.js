@@ -193,17 +193,37 @@ export function exportHtml(state, options) {
 
 export async function publishHtml(state, options) {
   const {userMapboxToken, exportMapboxAccessToken, mode} = options;
+  const canvas = document.getElementsByClassName('mapboxgl-canvas')[0];
+
+  const dataURI = await convertToPng(canvas);
+  const blob = dataURItoBlob(dataURI);
+
+  const formData = new FormData();
+  formData.append('image', blob);
+
+  const imageResponse = await fetch(
+    'https://tools.1point21interactive.com/digitaloceanuploadservice/upload',
+    {
+      method: 'post',
+      body: formData
+    }
+  );
+
+  const imageData = await imageResponse.json();
+
+  const imageUrl = imageData.url;
   const data = {
     ...getMapJSON(state),
     meta: {
       title: state.uiState.exportMap.HTML.mapTitle,
-      description: state.uiState.exportMap.HTML.description
+      description: state.uiState.exportMap.HTML.description,
+      image: imageUrl
     },
     mapboxApiAccessToken:
       (userMapboxToken || '') !== '' ? userMapboxToken : exportMapboxAccessToken,
     mode
   };
-  console.log(data);
+
   const html = exportMapToHTML(data);
 
   const response = await fetch('https://tools.1point21interactive.com/maps/', {
