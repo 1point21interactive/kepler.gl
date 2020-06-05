@@ -3,10 +3,10 @@
     "id": "uscounties",
     "label": "US Counties",
     "queryType": "sample",
-    "imageUrl": "https://map-images.sfo2.digitaloceanspaces.com/united_states.PNG",
+    "imageUrl": "https://map-images.sfo2.digitaloceanspaces.com/us_counties.PNG",
     "description": "",
     "detail": "",
-    "size": 52,
+    "size": 3233,
     "visible": "true",
     "dataUrl": "https://map-images.sfo2.digitaloceanspaces.com/US_Counties.json"
   },
