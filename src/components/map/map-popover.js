@@ -37,7 +37,7 @@ const StyledMapPopover = styled.div`
   color: ${props => props.theme.textColor};
   z-index: 1001;
   position: absolute;
-  overflow-x: auto;
+  overflow: hidden;
 
   .gutter {
     height: 6px;
@@ -62,6 +62,7 @@ const StyledMapPopover = styled.div`
       text-align: right;
       font-weight: 500;
       color: ${props => props.theme.textColorHl};
+      word-break: break-word;
     }
   }
 `;
