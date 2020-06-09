@@ -120,9 +120,10 @@ export default function PlotContainerFactory(MapContainer) {
       if (this.plottingAreaRef.current) {
         this.props.startExportingImage();
         const filter = node => node.className !== 'mapboxgl-control-container';
-
         convertToPng(this.plottingAreaRef.current, {filter})
-          .then(this.props.setExportImageDataUri)
+          .then(datauri => {
+            this.props.setExportImageDataUri(datauri);
+          })
           .catch(err => {
             this.props.setExportImageError(err);
             this.props.addNotification(exportImageError({err}));

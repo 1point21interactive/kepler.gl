@@ -387,6 +387,10 @@ export default function ModalContainerFactory(
               <ExportMapModal
                 config={keplerGlConfig}
                 options={uiState.exportMap}
+                exportImage={uiState.exportImage}
+                mapW={containerW}
+                mapH={containerH}
+                onUpdateSetting={uiStateActions.setExportImageSetting}
                 onChangeExportMapFormat={uiStateActions.setExportMapFormat}
                 onEditUserMapboxAccessToken={uiStateActions.setUserMapboxAccessToken}
                 onEditMapTitle={uiStateActions.setMapTitle}

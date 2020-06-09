@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import {FileType} from 'components/common/icons';
@@ -28,6 +28,11 @@ import {StyledExportMapSection} from './components';
 import ExportHtmlMapFactory from './export-html-map';
 import ExportJsonMapFactory from './export-json-map';
 import {FormattedMessage} from 'react-intl';
+import {
+  EXPORT_IMG_RATIO_OPTIONS,
+  EXPORT_IMG_RESOLUTION_OPTIONS,
+  EXPORT_IMG_RATIOS
+} from 'constants/default-settings';
 
 const propTypes = {
   options: PropTypes.object,
@@ -36,81 +41,184 @@ const propTypes = {
   onEditMapDescription: PropTypes.func,
   onChangeExportData: PropTypes.func,
   onChangeExportMapType: PropTypes.func,
-  mapFormat: PropTypes.string
+  mapFormat: PropTypes.string,
+  mapW: PropTypes.number.isRequired,
+  mapH: PropTypes.number.isRequired,
+  exportImage: PropTypes.object.isRequired,
+  // callbacks
+  onUpdateSetting: PropTypes.func.isRequired
 };
 
 const style = {width: '100%'};
 
 const NO_OP = () => {};
 
-ExportMapModalFactory.deps = [ExportHtmlMapFactory, ExportJsonMapFactory];
+// ExportMapModalFactory.deps = [ExportHtmlMapFactory, ExportJsonMapFactory];
+const ExportHtmlMap = ExportHtmlMapFactory();
+const ExportJsonMap = ExportJsonMapFactory();
+const ExportMapModalFactory = () => {
+  class ExportMapModal extends Component {
+    static propTypes = {
+      options: PropTypes.object,
+      onEditUserMapboxAccessToken: PropTypes.func.isRequired,
+      onEditMaptitle: PropTypes.func,
+      onEditMapDescription: PropTypes.func,
+      onChangeExportData: PropTypes.func,
+      onChangeExportMapType: PropTypes.func,
+      mapFormat: PropTypes.string,
+      mapW: PropTypes.number.isRequired,
+      mapH: PropTypes.number.isRequired,
+      exportImage: PropTypes.object.isRequired,
+      // callbacks
+      onUpdateSetting: PropTypes.func.isRequired
+    };
 
-function ExportMapModalFactory(ExportHtmlMap, ExportJsonMap) {
-  const ExportMapModal = React.memo(
-    ({
-      config = {},
-      onChangeExportData = NO_OP,
-      onChangeExportMapFormat = NO_OP,
-      onChangeExportMapHTMLMode = NO_OP,
-      onEditUserMapboxAccessToken = NO_OP,
-      onEditMapTitle = NO_OP,
-      onEditMapDescription = NO_OP,
-      options = {}
-    }) => (
-      <StyledModalContent className="export-map-modal">
-        <div style={style}>
-          <StyledExportMapSection>
-            <div className="description">
-              <div className="title">
-                <FormattedMessage id={'modal.exportMap.formatTitle'} />
+    componentDidMount() {
+      this._updateMapDim();
+    }
+
+    componentDidUpdate() {
+      this._updateMapDim();
+    }
+
+    _updateMapDim() {
+      const {exportImage, mapH, mapW} = this.props;
+      if (mapH !== exportImage.mapH || mapW !== exportImage.mapW) {
+        this.props.onUpdateSetting({
+          mapH,
+          mapW,
+          ratio: EXPORT_IMG_RATIOS.CUSTOM,
+          legend: false
+        });
+      }
+    }
+
+    render() {
+      const {
+        options,
+        onChangeExportMapHTMLMode,
+        onEditUserMapboxAccessToken,
+        onEditMapTitle,
+        onEditMapDescription,
+        config,
+        onChangeExportData
+      } = this.props;
+      return (
+        <StyledModalContent className="export-map-modal">
+          <div style={style}>
+            <StyledExportMapSection>
+              <div className="description">
+                <div className="title">
+                  <FormattedMessage id={'modal.exportMap.formatTitle'} />
+                </div>
+                <div className="subtitle">
+                  <FormattedMessage id={'modal.exportMap.formatSubtitle'} />
+                </div>
               </div>
-              <div className="subtitle">
-                <FormattedMessage id={'modal.exportMap.formatSubtitle'} />
+              <div className="selection">
+                {EXPORT_MAP_FORMAT_OPTIONS.map(op => (
+                  <StyledType
+                    key={op.id}
+                    selected={options.format === op.id}
+                    available={op.available}
+                    onClick={() => op.available && onChangeExportMapFormat(op.id)}
+                  >
+                    <FileType ext={op.label} height="80px" fontSize="11px" />
+                  </StyledType>
+                ))}
               </div>
-            </div>
-            <div className="selection">
-              {EXPORT_MAP_FORMAT_OPTIONS.map(op => (
-                <StyledType
-                  key={op.id}
-                  selected={options.format === op.id}
-                  available={op.available}
-                  onClick={() => op.available && onChangeExportMapFormat(op.id)}
-                >
-                  <FileType ext={op.label} height="80px" fontSize="11px" />
-                </StyledType>
-              ))}
-            </div>
-          </StyledExportMapSection>
-          {
+            </StyledExportMapSection>
             {
-              [EXPORT_MAP_FORMATS.HTML]: (
-                <ExportHtmlMap
-                  onChangeExportMapHTMLMode={onChangeExportMapHTMLMode}
-                  onEditUserMapboxAccessToken={onEditUserMapboxAccessToken}
-                  onEditMapTitle={onEditMapTitle}
-                  onEditMapDescription={onEditMapDescription}
-                  options={options[options.format]}
-                />
-              ),
-              [EXPORT_MAP_FORMATS.JSON]: (
-                <ExportJsonMap
-                  config={config}
-                  onChangeExportData={onChangeExportData}
-                  options={options[options.format]}
-                />
-              )
-            }[options.format]
-          }
-        </div>
-      </StyledModalContent>
-    )
-  );
-
-  ExportMapModal.propTypes = propTypes;
-
-  ExportMapModal.displayName = 'ExportMapModal';
+              {
+                [EXPORT_MAP_FORMATS.HTML]: (
+                  <ExportHtmlMap
+                    onChangeExportMapHTMLMode={onChangeExportMapHTMLMode}
+                    onEditUserMapboxAccessToken={onEditUserMapboxAccessToken}
+                    onEditMapTitle={onEditMapTitle}
+                    onEditMapDescription={onEditMapDescription}
+                    options={options[options.format]}
+                  />
+                ),
+                [EXPORT_MAP_FORMATS.JSON]: (
+                  <ExportJsonMap
+                    config={config}
+                    onChangeExportData={onChangeExportData}
+                    options={options[options.format]}
+                  />
+                )
+              }[options.format]
+            }
+          </div>
+        </StyledModalContent>
+      );
+    }
+  }
 
   return ExportMapModal;
-}
+};
+
+// function ExportMapModalFactory(ExportHtmlMap, ExportJsonMap) {
+//   const ExportMapModal = React.memo(
+//     ({
+//       config = {},
+//       onChangeExportData = NO_OP,
+//       onChangeExportMapFormat = NO_OP,
+//       onChangeExportMapHTMLMode = NO_OP,
+//       onEditUserMapboxAccessToken = NO_OP,
+//       onEditMapTitle = NO_OP,
+//       onEditMapDescription = NO_OP,
+//       options = {}
+//     }) => (
+//       <StyledModalContent className="export-map-modal">
+//         <div style={style}>
+//           <StyledExportMapSection>
+//             <div className="description">
+//               <div className="title">
+//                 <FormattedMessage id={'modal.exportMap.formatTitle'} />
+//               </div>
+//               <div className="subtitle">
+//                 <FormattedMessage id={'modal.exportMap.formatSubtitle'} />
+//               </div>
+//             </div>
+//             <div className="selection">
+//               {EXPORT_MAP_FORMAT_OPTIONS.map(op => (
+//                 <StyledType
+//                   key={op.id}
+//                   selected={options.format === op.id}
+//                   available={op.available}
+//                   onClick={() => op.available && onChangeExportMapFormat(op.id)}
+//                 >
+//                   <FileType ext={op.label} height="80px" fontSize="11px" />
+//                 </StyledType>
+//               ))}
+//             </div>
+//           </StyledExportMapSection>
+//           {
+//             {
+//               [EXPORT_MAP_FORMATS.HTML]: (
+//                 <ExportHtmlMap
+//                   onChangeExportMapHTMLMode={onChangeExportMapHTMLMode}
+//                   onEditUserMapboxAccessToken={onEditUserMapboxAccessToken}
+//                   onEditMapTitle={onEditMapTitle}
+//                   onEditMapDescription={onEditMapDescription}
+//                   options={options[options.format]}
+//                 />
+//               ),
+//               [EXPORT_MAP_FORMATS.JSON]: (
+//                 <ExportJsonMap
+//                   config={config}
+//                   onChangeExportData={onChangeExportData}
+//                   options={options[options.format]}
+//                 />
+//               )
+//             }[options.format]
+//           }
+//         </div>
+//       </StyledModalContent>
+//     )
+//   );
+
+//   return ExportMapModal;
+// }
 
 export default ExportMapModalFactory;

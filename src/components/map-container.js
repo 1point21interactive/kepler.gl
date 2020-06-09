@@ -452,6 +452,7 @@ export default function MapContainerFactory(MapPopover, MapControl, Editor) {
 
       const mapProps = {
         ...mapState,
+        className: 'testclass',
         preserveDrawingBuffer: true,
         mapboxApiAccessToken,
         mapboxApiUrl,
@@ -462,7 +463,7 @@ export default function MapContainerFactory(MapPopover, MapControl, Editor) {
       const isEdit = uiState.mapControls.mapDraw.active;
 
       return (
-        <StyledMapContainer style={MAP_STYLE.container}>
+        <StyledMapContainer style={MAP_STYLE.container} className="styledmapcontainer">
           <MapControl
             datasets={datasets}
             dragRotate={mapState.dragRotate}
@@ -485,36 +486,39 @@ export default function MapContainerFactory(MapPopover, MapControl, Editor) {
             onSetLocale={uiStateActions.setLocale}
             onToggleEditorVisibility={visStateActions.toggleEditorVisibility}
           />
-          <MapComponent
-            {...mapProps}
-            key="bottom"
-            ref={this._setMapboxMap}
-            mapStyle={mapStyle.bottomMapStyle}
-            getCursor={this.props.hoverInfo ? () => 'pointer' : undefined}
-            transitionDuration={TRANSITION_DURATION}
-            onMouseMove={this.props.visStateActions.onMouseMove}
-          >
-            {this._renderDeckOverlay(layersToRender)}
-            {this._renderMapboxOverlays(layersToRender)}
-            <Editor
-              index={index}
-              datasets={datasets}
-              editor={editor}
-              filters={this.polygonFilters(this.props)}
-              isEnabled={isEdit}
-              layers={layers}
-              layersToRender={layersToRender}
-              onDeleteFeature={visStateActions.deleteFeature}
-              onSelect={visStateActions.setSelectedFeature}
-              onUpdate={visStateActions.setFeatures}
-              onTogglePolygonFilter={visStateActions.setPolygonFilterLayer}
-              style={{
-                pointerEvents: isEdit ? 'all' : 'none',
-                position: 'absolute',
-                display: editor.visible ? 'block' : 'none'
-              }}
-            />
-          </MapComponent>
+          <div id="map-wrapper">
+            <MapComponent
+              {...mapProps}
+              key="bottom"
+              className="styledmap"
+              ref={this._setMapboxMap}
+              mapStyle={mapStyle.bottomMapStyle}
+              getCursor={this.props.hoverInfo ? () => 'pointer' : undefined}
+              transitionDuration={TRANSITION_DURATION}
+              onMouseMove={this.props.visStateActions.onMouseMove}
+            >
+              {this._renderDeckOverlay(layersToRender)}
+              {this._renderMapboxOverlays(layersToRender)}
+              <Editor
+                index={index}
+                datasets={datasets}
+                editor={editor}
+                filters={this.polygonFilters(this.props)}
+                isEnabled={isEdit}
+                layers={layers}
+                layersToRender={layersToRender}
+                onDeleteFeature={visStateActions.deleteFeature}
+                onSelect={visStateActions.setSelectedFeature}
+                onUpdate={visStateActions.setFeatures}
+                onTogglePolygonFilter={visStateActions.setPolygonFilterLayer}
+                style={{
+                  pointerEvents: isEdit ? 'all' : 'none',
+                  position: 'absolute',
+                  display: editor.visible ? 'block' : 'none'
+                }}
+              />
+            </MapComponent>
+          </div>
           {mapStyle.topMapStyle && (
             <div style={MAP_STYLE.top}>
               <MapComponent {...mapProps} key="top" mapStyle={mapStyle.topMapStyle} />

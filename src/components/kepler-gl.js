@@ -36,6 +36,7 @@ import * as ProviderActions from 'actions/provider-actions';
 
 import {
   EXPORT_IMAGE_ID,
+  EXPORT_MAP_ID,
   DIMENSIONS,
   KEPLER_GL_NAME,
   KEPLER_GL_VERSION,
@@ -336,6 +337,7 @@ function KeplerGlFactory(
         uiState.currentModal === EXPORT_IMAGE_ID ||
         uiState.currentModal === SAVE_MAP_ID ||
         uiState.currentModal === SHARE_MAP_ID ||
+        uiState.currentModal === EXPORT_MAP_ID ||
         uiState.currentModal === OVERWRITE_MAP_ID;
 
       const theme = this.availableThemeSelector(this.props);

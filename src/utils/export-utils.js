@@ -193,9 +193,7 @@ export function exportHtml(state, options) {
 
 export async function publishHtml(state, options) {
   const {userMapboxToken, exportMapboxAccessToken, mode} = options;
-  const canvas = document.getElementsByClassName('mapboxgl-canvas')[0];
-
-  const dataURI = await convertToPng(canvas);
+  const dataURI = state.uiState.exportImage.imageDataUri;
   const blob = dataURItoBlob(dataURI);
 
   const formData = new FormData();
@@ -212,6 +210,7 @@ export async function publishHtml(state, options) {
   const imageData = await imageResponse.json();
 
   const imageUrl = imageData.url;
+
   const data = {
     ...getMapJSON(state),
     meta: {

@@ -29,7 +29,6 @@ import {KEPLER_GL_VERSION, EXPORT_HTML_MAP_MODES} from 'constants/default-settin
  * @param {string} version which version of Kepler.gl to load.
  */
 export const exportMapToHTML = (options, version = KEPLER_GL_VERSION) => {
-  console.log(options);
   return `
     <!DOCTYPE html>
     <html>
