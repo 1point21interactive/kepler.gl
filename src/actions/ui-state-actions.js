@@ -24,7 +24,8 @@ import ActionTypes from 'constants/action-types';
 /**
  * Toggle active side panel
  * @memberof uiStateActions
- * @param {string} id  id of side panel to be shown, one of `layer`, `filter`, `interaction`, `map`
+ * @param id  id of side panel to be shown, one of `layer`, `filter`, `interaction`, `map`
+ * @type {typeof import('./ui-state-actions').toggleSidePanel}
  * @public
  */
 export const toggleSidePanel = createAction(ActionTypes.TOGGLE_SIDE_PANEL, id => id);
@@ -32,14 +33,14 @@ export const toggleSidePanel = createAction(ActionTypes.TOGGLE_SIDE_PANEL, id =>
 /**
  * Show and hide modal dialog
  * @memberof uiStateActions
- * @param {string|null} id - id of modal to be shown, null to hide modals. One of:
- *
+ * @param id - id of modal to be shown, null to hide modals. One of:
  *  - [`DATA_TABLE_ID`](../constants/default-settings.md#data_table_id)
  *  - [`DELETE_DATA_ID`](../constants/default-settings.md#delete_data_id)
  *  - [`ADD_DATA_ID`](../constants/default-settings.md#add_data_id)
  *  - [`EXPORT_IMAGE_ID`](../constants/default-settings.md#export_image_id)
  *  - [`EXPORT_DATA_ID`](../constants/default-settings.md#export_data_id)
  *  - [`ADD_MAP_STYLE_ID`](../constants/default-settings.md#add_map_style_id)
+ * @type {typeof import('./ui-state-actions').toggleModal}
  * @public
  */
 export const toggleModal = createAction(ActionTypes.TOGGLE_MODAL, id => id);
@@ -47,7 +48,8 @@ export const toggleModal = createAction(ActionTypes.TOGGLE_MODAL, id => id);
 /**
  * Hide and show side panel header dropdown, activated by clicking the share link on top of the side panel
  * @memberof uiStateActions
- * @param {string} id - id of the dropdown
+ * @param id - id of the dropdown
+ * @type {typeof import('./ui-state-actions').showExportDropdown}
  * @public
  */
 export const showExportDropdown = createAction(ActionTypes.SHOW_EXPORT_DROPDOWN, id => id);
@@ -55,6 +57,7 @@ export const showExportDropdown = createAction(ActionTypes.SHOW_EXPORT_DROPDOWN,
 /**
  * Hide side panel header dropdown, activated by clicking the share link on top of the side panel
  * @memberof uiStateActions
+ * @type {typeof import('./ui-state-actions').hideExportDropdown}
  * @public
  */
 export const hideExportDropdown = createAction(ActionTypes.HIDE_EXPORT_DROPDOWN);
@@ -62,7 +65,8 @@ export const hideExportDropdown = createAction(ActionTypes.HIDE_EXPORT_DROPDOWN)
 /**
  * Toggle active map control panel
  * @memberof uiStateActions
- * @param {string} panelId - map control panel id, one of the keys of: [`DEFAULT_MAP_CONTROLS`](#default_map_controls)
+ * @param panelId - map control panel id, one of the keys of: [`DEFAULT_MAP_CONTROLS`](#default_map_controls)
+ * @type {typeof import('./ui-state-actions').toggleMapControl}
  * @public
  */
 export const toggleMapControl = createAction(ActionTypes.TOGGLE_MAP_CONTROL, (panelId, index) => ({
@@ -73,7 +77,8 @@ export const toggleMapControl = createAction(ActionTypes.TOGGLE_MAP_CONTROL, (pa
 /**
  * Toggle active map control panel
  * @memberof uiStateActions
- * @param {string} datasetId - `id` of the dataset to be deleted
+ * @param datasetId - `id` of the dataset to be deleted
+ * @type {typeof import('./ui-state-actions').openDeleteModal}
  * @public
  */
 export const openDeleteModal = createAction(ActionTypes.OPEN_DELETE_MODAL, datasetId => datasetId);
@@ -82,7 +87,8 @@ export const openCopyIframeModal = createAction(ActionTypes.OPEN_COPY_IFRAME_URL
 /**
  * Add a notification to be displayed
  * @memberof uiStateActions
- * @param {Object} notification - The `notification` object to be added
+ * @param notification - The `notification` object to be added
+ * @type {typeof import('./ui-state-actions').addNotification}
  * @public
  */
 export const addNotification = createAction(
@@ -93,7 +99,8 @@ export const addNotification = createAction(
 /**
  * Remove a notification
  * @memberof uiStateActions
- * @param {string} id - `id` of the notification to be removed
+ * @param id - `id` of the notification to be removed
+ * @type {typeof import('./ui-state-actions').removeNotification}
  * @public
  */
 export const removeNotification = createAction(ActionTypes.REMOVE_NOTIFICATION, id => id);
@@ -101,7 +108,8 @@ export const removeNotification = createAction(ActionTypes.REMOVE_NOTIFICATION, 
 /**
  * Set `exportImage` settings: ratio, resolution, legend
  * @memberof uiStateActions
- * @param {Object} newSetting - {ratio: '1x'}
+ * @param newSetting - {ratio: '1x'}
+ * @type {typeof import('./ui-state-actions').setExportImageSetting}
  * @public
  */
 export const setExportImageSetting = createAction(
@@ -112,6 +120,7 @@ export const setExportImageSetting = createAction(
 /**
  * Set `exportImage.exporting` to true
  * @memberof uiStateActions
+ * @type {typeof import('./ui-state-actions').startExportingImage}
  * @public
  */
 export const startExportingImage = createAction(ActionTypes.START_EXPORTING_IMAGE);
@@ -119,7 +128,8 @@ export const startExportingImage = createAction(ActionTypes.START_EXPORTING_IMAG
 /**
  * Set `exportImage.setExportImageDataUri` to a dataUri
  * @memberof uiStateActions
- * @param {string} dataUri - export image data uri
+ * @param dataUri - export image data uri
+ * @type {typeof import('./ui-state-actions').setExportImageDataUri}
  * @public
  */
 export const setExportImageDataUri = createAction(
@@ -127,11 +137,18 @@ export const setExportImageDataUri = createAction(
   dataUri => dataUri
 );
 
+/**
+ * Set Export image error
+ * @memberof uiStateActions
+ * @type {typeof import('./ui-state-actions').setExportImageError}
+ * @public
+ */
 export const setExportImageError = createAction(ActionTypes.SET_EXPORT_IMAGE_ERROR, error => error);
 
 /**
  * Delete cached export image
  * @memberof uiStateActions
+ * @type {typeof import('./ui-state-actions').cleanupExportImage}
  * @public
  */
 export const cleanupExportImage = createAction(ActionTypes.CLEANUP_EXPORT_IMAGE);
@@ -139,7 +156,8 @@ export const cleanupExportImage = createAction(ActionTypes.CLEANUP_EXPORT_IMAGE)
 /**
  * Set selected dataset for export
  * @memberof uiStateActions
- * @param {string} datasetId - dataset id
+ * @param datasetId - dataset id
+ * @type {typeof import('./ui-state-actions').setExportSelectedDataset}
  * @public
  */
 export const setExportSelectedDataset = createAction(
@@ -150,7 +168,8 @@ export const setExportSelectedDataset = createAction(
 /**
  * Set data format for exporting data
  * @memberof uiStateActions
- * @param {string} dataType - one of `'text/csv'`
+ * @param dataType - one of `'text/csv'`
+ * @type {typeof import('./ui-state-actions').setExportDataType}
  * @public
  */
 export const setExportDataType = createAction(
@@ -161,7 +180,8 @@ export const setExportDataType = createAction(
 /**
  * Whether to export filtered data, `true` or `false`
  * @memberof uiStateActions
- * @param {boolean} payload - set `true` to ony export filtered data
+ * @param payload - set `true` to ony export filtered data
+ * @type {typeof import('./ui-state-actions').setExportFiltered}
  * @public
  */
 export const setExportFiltered = createAction(ActionTypes.SET_EXPORT_FILTERED, payload => payload);
@@ -169,6 +189,7 @@ export const setExportFiltered = createAction(ActionTypes.SET_EXPORT_FILTERED, p
 /**
  * Whether to including data in map config, toggle between `true` or `false`
  * @memberof uiStateActions
+ * @type {typeof import('./ui-state-actions').setExportData}
  * @public
  */
 export const setExportData = createAction(ActionTypes.SET_EXPORT_DATA);
@@ -176,7 +197,8 @@ export const setExportData = createAction(ActionTypes.SET_EXPORT_DATA);
 /**
  * Whether we export a mapbox access token used to create a single map html file
  * @memberof uiStateActions
- * @param {string} payload - mapbox access token
+ * @param payload - mapbox access token
+ * @type {typeof import('./ui-state-actions').setUserMapboxAccessToken}
  * @public
  */
 export const setUserMapboxAccessToken = createAction(
@@ -197,7 +219,8 @@ export const setMapDescription = createAction(ActionTypes.SET_MAP_DESCRIPTION, p
 /**
  * Set the export map format (html, json)
  * @memberOf uiStateActions
- * @param {string} payload - map format
+ * @param payload - map format
+ * @type {typeof import('./ui-state-actions').setExportMapFormat}
  * @public
  */
 export const setExportMapFormat = createAction(
@@ -207,7 +230,9 @@ export const setExportMapFormat = createAction(
 
 /**
  * Set the HTML mode to use to export HTML mode
- * @type {actionCreator}
+ * @memberOf uiStateActions
+ * @param payload - map mode
+ * @type {typeof import('./ui-state-actions').setExportHTMLMapMode}
  */
 export const setExportHTMLMapMode = createAction(
   ActionTypes.SET_EXPORT_MAP_HTML_MODE,
@@ -217,7 +242,8 @@ export const setExportHTMLMapMode = createAction(
 /**
  * Set `locale` value
  * @memberof uiStateActions
- * @param {Object} locale - locale of the UI
+ * @param locale - locale of the UI
+ * @type {typeof import('./ui-state-actions').setLocale}
  * @public
  */
 export const setLocale = createAction(ActionTypes.SET_LOCALE, locale => ({
@@ -238,5 +264,6 @@ export const setIframeUrl = createAction(ActionTypes.SET_EXPORT_IFRAME_URL, payl
  * @public
  */
 /* eslint-disable no-unused-vars */
+// @ts-ignore
 const uiStateActions = null;
 /* eslint-enable no-unused-vars */

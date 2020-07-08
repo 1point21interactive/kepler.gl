@@ -26,6 +26,7 @@ export default {
     label: 'label',
     fillColor: 'fill color',
     color: 'color',
+    coverage: 'coverage',
     strokeColor: 'stroke color',
     radius: 'radius',
     outline: 'outline',
@@ -112,15 +113,17 @@ export default {
       geojson: 'geojson',
       cluster: 'cluster',
       icon: 'icon',
-      heatmap: ' heatmap',
-      h3: 'H3',
+      heatmap: 'heatmap',
+      hexagon: 'hexagon',
+      hexagonid: 'H3',
       trip: 'trip',
       s2: 'S2',
       '3d': '3D'
     }
   },
   layerVisConfigs: {
-    strokeWidth: 'Stroke Width',
+    angle: 'Angle',
+    strokeWidth: 'Stroke Width (Pixels)',
     strokeWidthRange: 'Stroke Width Range',
     radius: 'Radius',
     fixedRadius: 'Fixed Radius to meter',
@@ -409,7 +412,8 @@ export default {
     },
     hexagon: {
       worldUnitSize: 'Hexagon Radius (km)'
-    }
+    },
+    hex_id: 'hex id'
   },
   color: {
     customPalette: 'Custom Palette',
@@ -439,6 +443,21 @@ export default {
   },
   geocoder: {
     title: 'Geocoder'
+  },
+  fieldSelector: {
+    clearAll: 'Clear All',
+    formatting: 'Formatting'
+  },
+  compare: {
+    modeLabel: 'Comparison Mode',
+    typeLabel: 'Comparison Type',
+    types: {
+      absolute: 'Absolute',
+      relative: 'Relative'
+    }
+  },
+  mapPopover: {
+    primary: 'Primary'
   },
   density: 'density',
   'Bug Report': 'Bug Report',

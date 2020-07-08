@@ -78,6 +78,11 @@ export const SBFlexboxItem = styled.div`
   margin-left: 16px;
 `;
 
+export const SBFlexboxNoMargin = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const PanelLabel = styled.label.attrs({
   className: 'side-panel-panel__label'
 })`
@@ -617,4 +622,10 @@ export const MapControlButton = styled(Button).attrs({
 export const StyledFilterContent = styled.div`
   background-color: ${props => props.theme.panelBackground};
   padding: 12px;
+`;
+
+export const TrancatedTitleText = styled.div`
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 `;

@@ -95,7 +95,8 @@ class ItemSelector extends Component {
     closeOnSelect: PropTypes.bool,
     DropdownHeaderComponent: PropTypes.func,
     DropDownRenderComponent: PropTypes.func,
-    DropDownLineItemRenderComponent: PropTypes.func
+    DropDownLineItemRenderComponent: PropTypes.func,
+    CustomChickletComponent: PropTypes.func
   };
 
   static defaultProps = {
@@ -171,6 +172,7 @@ class ItemSelector extends Component {
 
     if (this.props.multiSelect) {
       const items = uniqBy(previousSelected.concat(toArray(item)), getValue);
+
       this.props.onChange(items);
     } else {
       this.props.onChange(getValue(item));
@@ -187,7 +189,8 @@ class ItemSelector extends Component {
     this.props.onChange(null);
   };
 
-  _showTypeahead = () => {
+  _showTypeahead = e => {
+    e.stopPropagation();
     if (!this.props.disabled) {
       this.setState({
         showTypeahead: true
@@ -250,6 +253,7 @@ class ItemSelector extends Component {
               placeholder={this.props.placeholder}
               displayOption={displayOption}
               removeItem={this._removeItem}
+              CustomChickletComponent={this.props.CustomChickletComponent}
             />
           ) : (
             <StyledDropdownSelect {...dropdownSelectProps}>

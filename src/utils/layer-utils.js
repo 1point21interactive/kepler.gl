@@ -20,10 +20,7 @@
 
 /**
  * Find default layers from fields
- *
- * @param {Object} dataset
- * @param {Object} layerClasses
- * @returns {Array} found layers
+ * @type {typeof import('./layer-utils').findDefaultLayer}
  */
 export function findDefaultLayer(dataset, layerClasses = {}) {
   if (!dataset) {
@@ -59,10 +56,7 @@ export function findDefaultLayer(dataset, layerClasses = {}) {
 /**
  * calculate layer data based on layer type, col Config,
  * return updated layer if colorDomain, dataMap has changed
- * @param {Object} layer
- * @param {Object} state
- * @param {Object} oldLayerData
- * @returns {{layerData: Array<Object>, layer: Object | undefined}}
+ * @type {typeof import('./layer-utils').calculateLayerData}
  */
 export function calculateLayerData(layer, state, oldLayerData) {
   const {type} = layer;
@@ -73,4 +67,43 @@ export function calculateLayerData(layer, state, oldLayerData) {
 
   const layerData = layer.formatLayerData(state.datasets, oldLayerData);
   return {layerData, layer};
+}
+
+/**
+ * Calculate props passed to LayerHoverInfo
+ * @type {typeof import('./layer-utils').getLayerHoverProp}
+ */
+export function getLayerHoverProp({
+  interactionConfig,
+  hoverInfo,
+  layers,
+  layersToRender,
+  datasets
+}) {
+  if (interactionConfig.tooltip.enabled && hoverInfo && hoverInfo.picked) {
+    // if anything hovered
+    const {object, layer: overlay} = hoverInfo;
+
+    // deckgl layer to kepler-gl layer
+    const layer = layers[overlay.props.idx];
+
+    if (layer.getHoverData && layersToRender[layer.id]) {
+      // if layer is visible and have hovered data
+      const {
+        config: {dataId}
+      } = layer;
+      const {allData, fields} = datasets[dataId];
+      const data = layer.getHoverData(object, allData);
+      const fieldsToShow = interactionConfig.tooltip.config.fieldsToShow[dataId];
+
+      return {
+        data,
+        fields,
+        fieldsToShow,
+        layer
+      };
+    }
+  }
+
+  return null;
 }

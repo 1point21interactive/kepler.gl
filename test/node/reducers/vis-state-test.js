@@ -20,13 +20,17 @@
 
 /* eslint-disable max-statements */
 import test from 'tape-catch';
+import sinon from 'sinon';
+import {console as Console} from 'global/window';
+
+import {drainTasksForTesting, succeedTaskInTest, errorTaskInTest} from 'react-palm/tasks';
 import CloneDeep from 'lodash.clonedeep';
 
 import * as VisStateActions from 'actions/vis-state-actions';
 import * as MapStateActions from 'actions/map-state-actions';
 import reducer from 'reducers/vis-state';
 
-import {INITIAL_VIS_STATE, defaultAnimationConfig} from 'reducers/vis-state-updaters';
+import {INITIAL_VIS_STATE, DEFAULT_ANIMATION_CONFIG} from 'reducers/vis-state-updaters';
 
 import {getDefaultInteraction} from 'utils/interaction-utils';
 import {getDefaultFilter} from 'utils/filter-utils';
@@ -66,7 +70,8 @@ import {
   StateWFiles,
   StateWFilesFiltersLayerColor,
   testCsvDataId,
-  testGeoJsonDataId
+  testGeoJsonDataId,
+  InitialState
 } from 'test/helpers/mock-state';
 import {LAYER_VIS_CONFIGS, DEFAULT_TEXT_LABEL, DEFAULT_COLOR_UI} from 'layers/layer-factory';
 import {getNextColorMakerValue} from 'test/helpers/layer-utils';
@@ -474,7 +479,7 @@ test('#visStateReducer -> LAYER_TYPE_CHANGE.3 -> animationConfig', t => {
   t.deepEqual(
     nextState.animationConfig,
     {
-      ...defaultAnimationConfig,
+      ...DEFAULT_ANIMATION_CONFIG,
       domain: timeStampDomain,
       currentTime: timeStampDomain[0]
     },
@@ -495,7 +500,7 @@ test('#visStateReducer -> LAYER_TYPE_CHANGE.3 -> animationConfig', t => {
 
   t.deepEqual(
     nextState2.animationConfig,
-    defaultAnimationConfig,
+    DEFAULT_ANIMATION_CONFIG,
     'should set animationConfig to default'
   );
 
@@ -514,7 +519,7 @@ test('#visStateReducer -> LAYER_CONFIG_CHANGE -> isVisible -> animationConfig', 
 
   t.deepEqual(
     nextState.animationConfig,
-    defaultAnimationConfig,
+    DEFAULT_ANIMATION_CONFIG,
     'should set animationConfig to default'
   );
 
@@ -836,7 +841,7 @@ test('#visStateReducer -> REMOVE_LAYER', t => {
       picked: true
     },
     splitMaps: [],
-    animationConfig: defaultAnimationConfig
+    animationConfig: DEFAULT_ANIMATION_CONFIG
   };
 
   const newReducer = reducer(oldState, VisStateActions.removeLayer(1));
@@ -853,7 +858,7 @@ test('#visStateReducer -> REMOVE_LAYER', t => {
         picked: true
       },
       splitMaps: [],
-      animationConfig: defaultAnimationConfig
+      animationConfig: DEFAULT_ANIMATION_CONFIG
     },
     'should remove layer and layerData'
   );
@@ -910,7 +915,6 @@ test('#visStateReducer -> UPDATE_VIS_DATA.1 -> No data', t => {
   t.end();
 });
 
-/* eslint-disable max-statements */
 test('#visStateReducer -> UPDATE_VIS_DATA.2 -> to empty state', t => {
   const oldState = INITIAL_VIS_STATE;
 
@@ -2023,7 +2027,6 @@ test('#visStateReducer -> setFilter.dynamicDomain & gpu', t => {
 
   t.end();
 });
-/* eslint-enable max-statements */
 
 test('#visStateReducer -> UPDATE_FILTER_ANIMATION_SPEED', t => {
   const initialState = StateWFilters.visState;
@@ -2416,8 +2419,31 @@ test('#visStateReducer -> REMOVE_DATASET w filter and layer', t => {
         enabled: true,
         iconComponent: oldState.interactionConfig.tooltip.iconComponent,
         config: {
+          compareMode: false,
+          compareType: 'absolute',
           fieldsToShow: {
-            [testGeoJsonDataId]: ['OBJECTID', 'ZIP_CODE', 'ID', 'TRIPS', 'RATE']
+            [testGeoJsonDataId]: [
+              {
+                name: 'OBJECTID',
+                format: null
+              },
+              {
+                name: 'ZIP_CODE',
+                format: null
+              },
+              {
+                name: 'ID',
+                format: null
+              },
+              {
+                name: 'TRIPS',
+                format: null
+              },
+              {
+                name: 'RATE',
+                format: null
+              }
+            ]
           }
         }
       },
@@ -2519,7 +2545,7 @@ test('#visStateReducer -> SPLIT_MAP: REMOVE_LAYER', t => {
         }
       }
     ],
-    animationConfig: defaultAnimationConfig
+    animationConfig: DEFAULT_ANIMATION_CONFIG
   };
 
   const newReducer = reducer(oldState, VisStateActions.removeLayer(1));
@@ -2547,7 +2573,7 @@ test('#visStateReducer -> SPLIT_MAP: REMOVE_LAYER', t => {
           }
         }
       ],
-      animationConfig: defaultAnimationConfig
+      animationConfig: DEFAULT_ANIMATION_CONFIG
     },
     'should remove layer and layerData in split mode'
   );
@@ -2603,7 +2629,7 @@ test('#visStateReducer -> SPLIT_MAP: REMOVE_LAYER', t => {
   const newReducer3 = reducer(newReducer2, VisStateActions.removeLayer(2));
   t.deepEqual(
     newReducer3.animationConfig,
-    defaultAnimationConfig,
+    DEFAULT_ANIMATION_CONFIG,
     'remove last animation layer and set animation config to default'
   );
 
@@ -2628,13 +2654,30 @@ test('#visStateReducer -> SPLIT_MAP: REMOVE_DATASET', t => {
         enabled: true,
         iconComponent: oldState.interactionConfig.tooltip.iconComponent,
         config: {
+          compareMode: false,
+          compareType: 'absolute',
           fieldsToShow: {
             [testCsvDataId]: [
-              'gps_data.utc_timestamp',
-              'gps_data.types',
-              'epoch',
-              'has_result',
-              'id'
+              {
+                name: 'gps_data.utc_timestamp',
+                format: null
+              },
+              {
+                name: 'gps_data.types',
+                format: null
+              },
+              {
+                name: 'epoch',
+                format: null
+              },
+              {
+                name: 'has_result',
+                format: null
+              },
+              {
+                name: 'id',
+                format: null
+              }
             ]
           }
         }
@@ -2650,7 +2693,7 @@ test('#visStateReducer -> SPLIT_MAP: REMOVE_DATASET', t => {
     clicked: oldState.clicked,
     mousePos: oldState.mousePos,
     layerClasses: oldState.layerClasses,
-    animationConfig: defaultAnimationConfig,
+    animationConfig: DEFAULT_ANIMATION_CONFIG,
     initialState: [],
     layerToBeMerged: [],
     filterToBeMerged: [],
@@ -3011,7 +3054,6 @@ test('#visStateReducer -> LAYER_COLOR_UI_CHANGE. show dropdown', t => {
   t.end();
 });
 
-// eslint-disable-next-line max-statements
 test('#visStateReducer -> LAYER_COLOR_UI_CHANGE. colorRangeConfig.step', t => {
   const initialState = CloneDeep(StateWFilesFiltersLayerColor.visState);
   const pointLayer = initialState.layers[0];
@@ -3498,7 +3540,6 @@ test('#visStateReducer -> POLYGON: Add/Remove new polygon feature', t => {
   t.end();
 });
 
-/* eslint-disable max-statements */
 test('#visStateReducer -> POLYGON: Create polygon filter', t => {
   const state = {
     ...INITIAL_VIS_STATE
@@ -3661,7 +3702,6 @@ test('#visStateReducer -> POLYGON: Create polygon filter', t => {
 
   t.end();
 });
-/* eslint-enable max-statements */
 
 test('#visStateReducer -> POLYGON: Toggle filter feature', t => {
   const state = {
@@ -4129,5 +4169,311 @@ test('#visStateReducer -> PIN_TABLE_COLUMN', t => {
     'should remove from pinned columns'
   );
 
+  t.end();
+});
+
+test('#visStateReducer -> LOAD_FILES', async t => {
+  const loadFilesSuccessSpy = sinon.spy(VisStateActions, 'loadFilesSuccess');
+  const loadFileErrSpy = sinon.spy(Console, 'warn');
+  const initialState = CloneDeep(InitialState).visState;
+  const mockResults = {
+    data: [
+      {value1: 'a', value2: 1},
+      {value1: 'b', value2: 2}
+    ]
+  };
+  const mockFiles = [
+    {type: 'text/csv', name: 'test-file.csv'},
+    {type: 'text/csv', name: 'test-file-2.csv'}
+  ];
+  // mock async generator
+  async function* run(fileName) {
+    // Sleep for 100ms, see: https://masteringjs.io/tutorials/fundamentals/sleep
+    let percent = 0;
+    await new Promise(resolve => setTimeout(resolve, 100));
+    while (percent < 1) {
+      percent += 1;
+      yield {progress: {percent}, fileName, ...mockResults};
+    }
+  }
+
+  const nextState = reducer(initialState, VisStateActions.loadFiles(mockFiles));
+  const [task1, ...more] = drainTasksForTesting();
+
+  t.equal(more.length, 0, 'should ceate 1 task');
+
+  const exptectedTask1 = {
+    type: 'LOAD_FILE_TASK',
+    payload: {file: {type: 'text/csv', name: 'test-file.csv'}, fileCache: []}
+  };
+
+  t.equal(task1.type, exptectedTask1.type, 'should create LOAD_FILE_TASK task');
+  t.deepEqual(
+    task1.payload,
+    exptectedTask1.payload,
+    'should create LOAD_FILE_TASK correct payload'
+  );
+
+  const expectedFileLoading = {
+    fileCache: [],
+    filesToLoad: [{type: 'text/csv', name: 'test-file-2.csv'}],
+    onFinish: VisStateActions.loadFilesSuccess
+  };
+  const expectedFileLoadingProgress = {
+    'test-file.csv': {percent: 0, message: 'loading...', fileName: 'test-file.csv', error: null},
+    'test-file-2.csv': {percent: 0, message: '', fileName: 'test-file-2.csv', error: null}
+  };
+
+  t.deepEqual(nextState.fileLoading, expectedFileLoading, 'should save fileLoading in state');
+  t.deepEqual(
+    nextState.fileLoadingProgress,
+    expectedFileLoadingProgress,
+    'should save fileLoadingProgress in state'
+  );
+
+  const asyncIterator = run('test-file.csv');
+
+  // test nextFileBatchUpdater
+  const nextState2 = reducer(nextState, succeedTaskInTest(task1, asyncIterator));
+  // test LOAD_FILE_TASK success
+  const [task2, ...more2] = drainTasksForTesting();
+  t.equal(more2.length, 0, 'should ceate 1 task');
+  t.equal(task2.type, 'UNWRAP', 'should return an UNWRAP task');
+  t.ok(task2.payload instanceof Promise, 'task 2 payload should be a Promise');
+
+  t.equal(
+    nextState2.fileLoading,
+    nextState.fileLoading,
+    'fileLoading should not change for the first batch'
+  );
+  t.deepEqual(
+    nextState2.fileLoadingProgress,
+    nextState.fileLoadingProgress,
+    'fileLoadingProgress should not change for the first batch'
+  );
+
+  // test LOAD_FILE_TASK error
+  const err1 = {message: 'error 1'};
+  const nextState2Err = reducer(nextState, errorTaskInTest(task1, err1));
+  const [task2Err, ...more2err] = drainTasksForTesting();
+  t.equal(more2err.length, 0, 'should ceate 1 task');
+  const expectedErrProgress = {
+    'test-file.csv': {percent: 0, message: 'loading...', fileName: 'test-file.csv', error: err1},
+    'test-file-2.csv': {percent: 0, message: '', fileName: 'test-file-2.csv', error: null}
+  };
+  t.deepEqual(
+    nextState2Err.fileLoadingProgress,
+    expectedErrProgress,
+    'should save error to fileLoadingProgress'
+  );
+  loadFileErrSpy.calledWith(err1);
+
+  t.equal(
+    task2Err.type,
+    'DELAY_TASK',
+    'should create a DELAY_TASK task when loadFileErr is triggered'
+  );
+  const nextState3Err = reducer(nextState2Err, succeedTaskInTest(task2Err));
+  const [task3Err, ...more3err] = drainTasksForTesting();
+  t.equal(more3err.length, 0, 'should ceate 1 task');
+  t.equal(task3Err.type, 'LOAD_FILE_TASK', 'should return an LOAD_FILE_TASK');
+  t.deepEqual(
+    task3Err.payload,
+    {file: {type: 'text/csv', name: 'test-file-2.csv'}, fileCache: []},
+    'should return an LOAD_FILE_TASK with 2nd file to load'
+  );
+  const expectedErrFileLoadingProgress = {
+    'test-file.csv': {percent: 0, message: 'loading...', fileName: 'test-file.csv', error: err1},
+    'test-file-2.csv': {percent: 0, message: 'loading...', fileName: 'test-file-2.csv', error: null}
+  };
+  t.deepEqual(
+    nextState3Err.fileLoadingProgress,
+    expectedErrFileLoadingProgress,
+    'fileLoadingProgress should update whe calling loadNextfileUpdater'
+  );
+  t.deepEqual(
+    nextState3Err.fileLoading,
+    {
+      fileCache: [],
+      filesToLoad: [],
+      onFinish: VisStateActions.loadFilesSuccess
+    },
+    'fileLoading should not add result to fileCache when error'
+  );
+
+  // UNWRAP Task success
+  const unwrapSuccess = await task2.payload;
+  const resultState3 = reducer(nextState2, succeedTaskInTest(task2, unwrapSuccess));
+
+  // should return another unwrap task
+  const [task3, ...more3] = drainTasksForTesting();
+  t.equal(more3.length, 0, 'should ceate 1 task');
+  t.equal(task3.type, 'UNWRAP', 'should return an UNWRAP task');
+  t.ok(task3.payload instanceof Promise, 'task 3 payload should be a Promise');
+  const expectedFileLoadingProgress3 = {
+    'test-file.csv': {percent: 1, message: 'loading...', fileName: 'test-file.csv', error: null},
+    'test-file-2.csv': {percent: 0, message: '', fileName: 'test-file-2.csv', error: null}
+  };
+  t.equal(
+    resultState3.fileLoading,
+    nextState2.fileLoading,
+    'fileLoading should not change when loadingis not finished'
+  );
+  t.deepEqual(
+    resultState3.fileLoadingProgress,
+    expectedFileLoadingProgress3,
+    'fileLoadingProgress should update with percent'
+  );
+
+  // calling UNWRAP_TASK sucess to create File Process task
+  const unwrapSuccess3 = await task3.payload;
+  const resultState4 = reducer(resultState3, succeedTaskInTest(task3, unwrapSuccess3));
+  const [task4, ...more4] = drainTasksForTesting();
+
+  const expectedFileLoadingProgress4 = {
+    'test-file.csv': {percent: 1, message: 'processing...', fileName: 'test-file.csv', error: null},
+    'test-file-2.csv': {percent: 0, message: '', fileName: 'test-file-2.csv', error: null}
+  };
+  t.equal(resultState3.fileLoading, resultState4.fileLoading, 'fileLoading should be the same');
+  t.deepEqual(
+    resultState4.fileLoadingProgress,
+    expectedFileLoadingProgress4,
+    'fileLoadingProgress should update to reflect processing'
+  );
+
+  t.equal(more4.length, 0, 'should ceate 1 task');
+  const expectedpayload = {
+    content: {progress: {percent: 1}, fileName: 'test-file.csv', ...mockResults},
+    fileCache: []
+  };
+  t.equal(task4.type, 'PROCESS_FILE_CONTENT', 'should return an PROCESS_FILE_CONTENT task');
+  t.deepEqual(
+    task4.payload,
+    expectedpayload,
+    'PROCESS_FILE_CONTENT task payload should be correct'
+  );
+
+  const fileProcessResult = [
+    {
+      data: [],
+      info: {
+        label: 'test_data.csv',
+        format: 'csv'
+      }
+    }
+  ];
+
+  // calling loadFileStepSuccess with file process result
+  const resultState5 = reducer(resultState4, succeedTaskInTest(task4, fileProcessResult));
+
+  const expectedFileLoadingProgress5 = {
+    'test-file.csv': {percent: 1, message: 'Done', fileName: 'test-file.csv', error: null},
+    'test-file-2.csv': {percent: 0, message: '', fileName: 'test-file-2.csv', error: null}
+  };
+  t.deepEqual(
+    resultState5.fileLoadingProgress,
+    expectedFileLoadingProgress5,
+    'fileLoadingProgress should update to show finish'
+  );
+  t.deepEqual(
+    resultState5.fileLoading,
+    {
+      fileCache: fileProcessResult,
+      filesToLoad: [{type: 'text/csv', name: 'test-file-2.csv'}],
+      onFinish: VisStateActions.loadFilesSuccess
+    },
+    'fileLoading should update to add result to fileCache'
+  );
+  const [task5, ...more5] = drainTasksForTesting();
+  t.equal(more5.length, 0, 'should ceate 1 task');
+  t.equal(task5.type, 'DELAY_TASK', 'should return an DELAY_TASK');
+
+  // calling delayed task succeed to trigger load next file
+  const resultState6 = reducer(resultState5, succeedTaskInTest(task5));
+  const [task6, ...more6] = drainTasksForTesting();
+  t.equal(more6.length, 0, 'should ceate 1 task');
+  t.equal(task6.type, 'LOAD_FILE_TASK', 'should return an LOAD_FILE_TASK');
+  t.deepEqual(
+    task6.payload,
+    {file: {type: 'text/csv', name: 'test-file-2.csv'}, fileCache: fileProcessResult},
+    'should return an LOAD_FILE_TASK with 2nd file to load'
+  );
+  const expectedFileLoadingProgress6 = {
+    'test-file.csv': {percent: 1, message: 'Done', fileName: 'test-file.csv', error: null},
+    'test-file-2.csv': {percent: 0, message: 'loading...', fileName: 'test-file-2.csv', error: null}
+  };
+  t.deepEqual(
+    resultState6.fileLoadingProgress,
+    expectedFileLoadingProgress6,
+    'fileLoadingProgress should update whe calling loadNextfileUpdater'
+  );
+  t.deepEqual(
+    resultState6.fileLoading,
+    {
+      fileCache: fileProcessResult,
+      filesToLoad: [],
+      onFinish: VisStateActions.loadFilesSuccess
+    },
+    'fileLoading should update to add result to fileCache'
+  );
+  // fast forward so we can test final result
+  const asyncIterator2 = run('test-file-2.csv');
+  const resultState7 = reducer(resultState6, succeedTaskInTest(task6, asyncIterator2));
+  const [task7] = drainTasksForTesting();
+
+  const unwrapSuccess7 = await task7.payload;
+  const resultState8 = reducer(resultState7, succeedTaskInTest(task7, unwrapSuccess7));
+  const [task8] = drainTasksForTesting();
+  const unwrapSuccess8 = await task8.payload;
+  const resultState9 = reducer(resultState8, succeedTaskInTest(task8, unwrapSuccess8));
+  // process task
+  const [task9] = drainTasksForTesting();
+  const file2ProcessResult = [
+    ...fileProcessResult,
+    {
+      data: [{value: 1}],
+      info: {
+        label: 'test_data_2.csv',
+        format: 'csv'
+      }
+    }
+  ];
+  const resultState10 = reducer(resultState9, succeedTaskInTest(task9, file2ProcessResult));
+
+  const expectedFileLoadingProgress10 = {
+    'test-file.csv': {percent: 1, message: 'Done', fileName: 'test-file.csv', error: null},
+    'test-file-2.csv': {percent: 1, message: 'Done', fileName: 'test-file-2.csv', error: null}
+  };
+  t.deepEqual(
+    resultState10.fileLoadingProgress,
+    expectedFileLoadingProgress10,
+    'fileLoadingProgress should update to show finish both files'
+  );
+  t.deepEqual(
+    resultState10.fileLoading,
+    {
+      fileCache: file2ProcessResult,
+      filesToLoad: [],
+      onFinish: VisStateActions.loadFilesSuccess
+    },
+    'fileLoading should update to add 2nd file result to fileCache'
+  );
+  const [task10, ...more10] = drainTasksForTesting();
+  t.equal(more10.length, 0, 'should ceate 1 task');
+  t.equal(task10.type, 'DELAY_TASK', 'should return an DELAY_TASK for onFinish');
+
+  // calling delayed task succeed to trigger load next file
+  /* eslint-disable no-unused-vars */
+  const resultState11 = reducer(resultState10, succeedTaskInTest(task10));
+
+  t.ok(loadFilesSuccessSpy.calledOnce);
+  const expectedArgs = [
+    {data: [], info: {label: 'test_data.csv', format: 'csv'}},
+    {data: [{value: 1}], info: {label: 'test_data_2.csv', format: 'csv'}}
+  ];
+  t.ok(loadFilesSuccessSpy.calledWith(expectedArgs));
+  loadFilesSuccessSpy.restore();
+
+  loadFileErrSpy.restore();
   t.end();
 });

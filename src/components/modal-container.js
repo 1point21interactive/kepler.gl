@@ -24,6 +24,7 @@ import {css} from 'styled-components';
 import {findDOMNode} from 'react-dom';
 import {createSelector} from 'reselect';
 import get from 'lodash.get';
+import document from 'global/document';
 
 import ModalDialogFactory from './modals/modal-dialog';
 import KeplerGlSchema from 'schemas';
@@ -67,7 +68,8 @@ import {
   OVERWRITE_MAP_ID,
   COPY_IFRAME_URL
 } from 'constants/default-settings';
-import {EXPORT_MAP_FORMATS} from '../constants/default-settings';
+import {EXPORT_MAP_FORMATS} from 'constants/default-settings';
+import KeyEvent from 'constants/keyevent';
 
 const DataTableModalStyle = css`
   top: 80px;
@@ -143,6 +145,14 @@ export default function ModalContainerFactory(
       onSaveToStorage: PropTypes.func,
       cloudProviders: PropTypes.arrayOf(PropTypes.object)
     };
+
+    componentDidMount = () => {
+      document.addEventListener('keyup', this._onKeyUp);
+    };
+    componentWillUnmount() {
+      document.removeEventListener('keyup', this._onKeyUp);
+    }
+
     cloudProviders = props => props.cloudProviders;
     providerWithStorage = createSelector(this.cloudProviders, cloudProviders =>
       cloudProviders.filter(p => p.hasPrivateStorage())
@@ -150,6 +160,14 @@ export default function ModalContainerFactory(
     providerWithShare = createSelector(this.cloudProviders, cloudProviders =>
       cloudProviders.filter(p => p.hasSharingUrl())
     );
+
+    _onKeyUp = event => {
+      const keyCode = event.keyCode;
+      if (keyCode === KeyEvent.DOM_VK_ESCAPE) {
+        this._closeModal();
+      }
+    };
+
     _closeModal = () => {
       this.props.uiStateActions.toggleModal(null);
     };
@@ -322,7 +340,8 @@ export default function ModalContainerFactory(
                 onSetCloudProvider={this.props.providerActions.setCloudProvider}
                 getSavedMaps={this.props.providerActions.getSavedMaps}
                 loadFiles={uiState.loadFiles}
-                {...uiState.loadFiles}
+                fileLoading={visState.fileLoading}
+                fileLoadingProgress={visState.fileLoadingProgress}
               />
             );
             modalProps = {

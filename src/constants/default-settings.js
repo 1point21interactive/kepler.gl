@@ -42,6 +42,7 @@ import {
   Cancel
 } from 'components/common/icons';
 import {getHTMLMapModeTileUrl} from 'utils/utils';
+import {TOOLTIP_FORMAT_TYPES} from './tooltip';
 
 export const ACTION_PREFIX = '@@kepler.gl/';
 export const CLOUDFRONT = 'https://d1a3f4spazzrp4.cloudfront.net/kepler.gl';
@@ -606,7 +607,8 @@ export const FIELD_OPTS = {
       ...ordinalFieldAggrScaleFunctions
     },
     format: {
-      legend: d => d
+      legend: d => d,
+      tooltip: []
     }
   },
   real: {
@@ -616,7 +618,8 @@ export const FIELD_OPTS = {
       ...linearFieldAggrScaleFunctions
     },
     format: {
-      legend: d => d
+      legend: d => d,
+      tooltip: [TOOLTIP_FORMAT_TYPES.DECIMAL, TOOLTIP_FORMAT_TYPES.PERCENTAGE]
     }
   },
   timestamp: {
@@ -626,7 +629,8 @@ export const FIELD_OPTS = {
       ...notSupportAggrOpts
     },
     format: {
-      legend: d => d
+      legend: d => d,
+      tooltip: [TOOLTIP_FORMAT_TYPES.DATE, TOOLTIP_FORMAT_TYPES.DATE_TIME]
     }
   },
   integer: {
@@ -636,7 +640,8 @@ export const FIELD_OPTS = {
       ...linearFieldAggrScaleFunctions
     },
     format: {
-      legend: d => d
+      legend: d => d,
+      tooltip: [TOOLTIP_FORMAT_TYPES.DECIMAL, TOOLTIP_FORMAT_TYPES.PERCENTAGE]
     }
   },
   boolean: {
@@ -646,7 +651,8 @@ export const FIELD_OPTS = {
       ...ordinalFieldAggrScaleFunctions
     },
     format: {
-      legend: d => d
+      legend: d => d,
+      tooltip: []
     }
   },
   date: {
@@ -655,7 +661,8 @@ export const FIELD_OPTS = {
       ...ordinalFieldAggrScaleFunctions
     },
     format: {
-      legend: d => d
+      legend: d => d,
+      tooltip: [TOOLTIP_FORMAT_TYPES.DATE]
     }
   },
   geojson: {
@@ -665,7 +672,8 @@ export const FIELD_OPTS = {
       ...notSupportAggrOpts
     },
     format: {
-      legend: d => '...'
+      legend: d => '...',
+      tooltip: []
     }
   }
 };
@@ -869,8 +877,14 @@ export const DEFAULT_NOTIFICATION_TOPICS = keyMirror({
 
 // Animation
 export const BASE_SPEED = 600;
+export const FPS = 60;
+export const ANIMATION_TYPE = keyMirror({
+  interval: null,
+  continuous: null
+});
 export const DEFAULT_TIME_FORMAT = 'MM/DD/YY HH:mm:ssa';
 export const SPEED_CONTROL_RANGE = [0, 10];
+export const SPEED_CONTROL_STEP = 0.001;
 
 // We could use directly react-map-gl-draw EditorMode but this would
 // create a direct dependency with react-map-gl-draw

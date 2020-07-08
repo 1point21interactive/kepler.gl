@@ -57,6 +57,8 @@ const actionHandler = {
 
   [ActionTypes.LOAD_NEXT_FILE]: visStateUpdaters.loadNextFileUpdater,
 
+  [ActionTypes.LOAD_FILE_STEP_SUCCESS]: visStateUpdaters.loadFileStepSuccessUpdater,
+
   [ActionTypes.MAP_CLICK]: visStateUpdaters.mapClickUpdater,
 
   [ActionTypes.MOUSE_MOVE]: visStateUpdaters.mouseMoveUpdater,
@@ -78,8 +80,6 @@ const actionHandler = {
   [ActionTypes.SET_FILTER_PLOT]: visStateUpdaters.setFilterPlotUpdater,
 
   [ActionTypes.SET_MAP_INFO]: visStateUpdaters.setMapInfoUpdater,
-
-  [ActionTypes.SET_VISIBLE_LAYERS_FOR_MAP]: visStateUpdaters.setVisibleLayersForMapUpdater,
 
   [ActionTypes.SHOW_DATASET_TABLE]: visStateUpdaters.showDatasetTableUpdater,
 
@@ -109,7 +109,7 @@ const actionHandler = {
 
   [ActionTypes.SET_EDITOR_MODE]: visStateUpdaters.setEditorModeUpdater,
 
-  [ActionTypes.TOGGLE_EDITOR_VISIBILITY]: visStateUpdaters.toggleEditorVisibility,
+  [ActionTypes.TOGGLE_EDITOR_VISIBILITY]: visStateUpdaters.toggleEditorVisibilityUpdater,
 
   [ActionTypes.TOGGLE_FILTER_FEATURE]: visStateUpdaters.toggleFilterFeatureUpdater,
 
@@ -119,7 +119,11 @@ const actionHandler = {
 
   [ActionTypes.PIN_TABLE_COLUMN]: visStateUpdaters.pinTableColumnUpdater,
 
-  [ActionTypes.COPY_TABLE_COLUMN]: visStateUpdaters.copyTableColumnUpdater
+  [ActionTypes.COPY_TABLE_COLUMN]: visStateUpdaters.copyTableColumnUpdater,
+
+  [ActionTypes.NEXT_FILE_BATCH]: visStateUpdaters.nextFileBatchUpdater,
+
+  [ActionTypes.PROCESS_FILE_CONTENT]: visStateUpdaters.processFileContentUpdater
 };
 
 // construct vis-state reducer

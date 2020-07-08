@@ -142,6 +142,7 @@ export const dropdownListShadow = '0 6px 12px 0 rgba(0,0,0,0.16)';
 export const dropdownListBgd = '#3A414C';
 export const dropdownListBgdLT = '#FFFFFF';
 export const dropdownListBorderTop = '#242730';
+export const dropdownListBorderTopLT = '#D3D8E0';
 export const dropdownWrapperZ = 100;
 // Switch
 export const switchWidth = 24;
@@ -205,6 +206,10 @@ export const tooltipColor = '#333334';
 export const bottomInnerPdSide = 32;
 export const bottomInnerPdVert = 6;
 export const bottomPanelGap = 20;
+export const bottomWidgetPaddingTop = 20;
+export const bottomWidgetPaddingRight = 20;
+export const bottomWidgetPaddingBottom = 30;
+export const bottomWidgetPaddingLeft = 20;
 
 // Modal
 export const modalTitleColor = '#3A414C';
@@ -241,7 +246,7 @@ export const sliderHandleHoverColor = '#FFFFFF';
 export const sliderHandleShadow = '0 2px 4px 0 rgba(0,0,0,0.40)';
 export const sliderInputHeight = 24;
 export const sliderInputWidth = 56;
-export const sliderMarginTopIsRange = 0;
+export const sliderMarginTopIsTime = -12;
 export const sliderMarginTop = 12;
 
 // Plot
@@ -289,6 +294,9 @@ const timeDisplayPadding = '0 24px';
 // Export map modal
 const exportIntraSectionMargin = '8';
 
+// progress bar
+const progressBarColor = primaryBtnBgd;
+const progressBarTrackColor = '#E8E8E8';
 // Action Panel
 export const actionPanelWidth = 110;
 export const actionPanelHeight = 32;
@@ -883,6 +891,7 @@ export const theme = {
   dropdownListBgd,
   dropdownListBgdLT,
   dropdownListBorderTop,
+  dropdownListBorderTopLT,
 
   labelColor,
   labelColorLT,
@@ -1061,6 +1070,10 @@ export const theme = {
   bottomInnerPdSide,
   bottomInnerPdVert,
   bottomPanelGap,
+  bottomWidgetPaddingTop,
+  bottomWidgetPaddingRight,
+  bottomWidgetPaddingBottom,
+  bottomWidgetPaddingLeft,
 
   // Slider
   sliderBarColor,
@@ -1075,7 +1088,7 @@ export const theme = {
   sliderHandleShadow,
   sliderInputHeight,
   sliderInputWidth,
-  sliderMarginTopIsRange,
+  sliderMarginTopIsTime,
   sliderMarginTop,
 
   // Plot
@@ -1121,7 +1134,11 @@ export const theme = {
   actionPanelHeight,
 
   // Breakpoints
-  breakPoints
+  breakPoints,
+
+  // progressbar
+  progressBarColor,
+  progressBarTrackColor
 };
 
 export const themeLT = {

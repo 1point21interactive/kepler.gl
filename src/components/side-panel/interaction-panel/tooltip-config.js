@@ -18,42 +18,158 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import React from 'react';
-import {SidePanelSection} from 'components/common/styled-components';
+import React, {Component} from 'react';
+import styled from 'styled-components';
+import {FormattedMessage, injectIntl} from 'react-intl';
+import {
+  SidePanelSection,
+  SBFlexboxNoMargin,
+  Button,
+  PanelLabel
+} from 'components/common/styled-components';
 import FieldSelector from 'components/common/field-selector';
 import DatasetTagFactory from 'components/side-panel/common/dataset-tag';
-
+import TooltipChickletFactory from './tooltip-config/tooltip-chicklet';
+import Switch from 'components/common/switch';
+import ItemSelector from 'components/common/item-selector/item-selector';
+import {COMPARE_TYPES} from 'constants/tooltip';
 TooltipConfigFactory.deps = [DatasetTagFactory];
 
-function TooltipConfigFactory(DatasetTag) {
-  const TooltipConfig = ({config, datasets, onChange}) => (
-    <div>
-      {Object.keys(config.fieldsToShow).map(dataId => (
-        <SidePanelSection key={dataId}>
-          <DatasetTag dataset={datasets[dataId]} />
-          <FieldSelector
-            fields={datasets[dataId].fields}
-            value={config.fieldsToShow[dataId]}
-            onSelect={fieldsToShow => {
-              const newConfig = {
-                ...config,
-                fieldsToShow: {
-                  ...config.fieldsToShow,
-                  [dataId]: fieldsToShow.map(d => d.name)
-                }
-              };
-              onChange(newConfig);
-            }}
-            closeOnSelect={false}
-            multiSelect
-            inputTheme="secondary"
-          />
-        </SidePanelSection>
-      ))}
-    </div>
-  );
+const TooltipConfigWrapper = styled.div`
+  .item-selector > div > div {
+    overflow: visible;
+  }
+`;
 
-  return TooltipConfig;
+const ButtonWrapper = styled.div`
+  display: inherit;
+  padding: 0;
+
+  .button.clear-all {
+    background: transparent;
+    color: ${props => props.theme.subtextColor};
+    margin: 0 0 0 8px;
+    padding: 0;
+
+    &:hover {
+      color: ${props => props.theme.textColor};
+    }
+  }
+`;
+
+const CompareSwitchWrapper = styled.div`
+  color: ${props => props.theme.labelColor};
+  display: flex;
+  font-size: ${props => props.theme.inputFontSize};
+  justify-content: space-between;
+  line-height: 11px;
+  margin-bottom: 8px;
+`;
+
+function TooltipConfigFactory(DatasetTag) {
+  class TooltipConfig extends Component {
+    render() {
+      const {config, datasets, onChange, intl} = this.props;
+      return (
+        <TooltipConfigWrapper>
+          {Object.keys(config.fieldsToShow).map(dataId => (
+            <SidePanelSection key={dataId}>
+              <SBFlexboxNoMargin>
+                <DatasetTag dataset={datasets[dataId]} />
+                {Boolean(config.fieldsToShow[dataId].length) && (
+                  <ButtonWrapper>
+                    <Button
+                      className="clear-all"
+                      onClick={() => {
+                        const newConfig = {
+                          ...config,
+                          fieldsToShow: {
+                            ...config.fieldsToShow,
+                            [dataId]: []
+                          }
+                        };
+                        onChange(newConfig);
+                      }}
+                      width="48px"
+                      secondary
+                    >
+                      <FormattedMessage id="fieldSelector.clearAll" />
+                    </Button>
+                  </ButtonWrapper>
+                )}
+              </SBFlexboxNoMargin>
+              <FieldSelector
+                fields={datasets[dataId].fields}
+                value={config.fieldsToShow[dataId]}
+                onSelect={fieldsToShow => {
+                  const newConfig = {
+                    ...config,
+                    fieldsToShow: {
+                      ...config.fieldsToShow,
+                      [dataId]: fieldsToShow
+                    }
+                  };
+                  onChange(newConfig);
+                }}
+                closeOnSelect={false}
+                multiSelect
+                inputTheme="secondary"
+                CustomChickletComponent={TooltipChickletFactory(
+                  dataId,
+                  config,
+                  onChange,
+                  datasets[dataId].fields
+                )}
+              />
+            </SidePanelSection>
+          ))}
+          <CompareSwitchWrapper>
+            <FormattedMessage id="compare.modeLabel" />
+            <Switch
+              checked={config.compareMode}
+              id="compare-mode-toggle"
+              onChange={() => {
+                const newConfig = {
+                  ...config,
+                  compareMode: !config.compareMode
+                };
+                onChange(newConfig);
+              }}
+              secondary
+            />
+          </CompareSwitchWrapper>
+          <SidePanelSection>
+            <PanelLabel>
+              <FormattedMessage id="compare.typeLabel" />
+            </PanelLabel>
+            <ItemSelector
+              disabled={!config.compareMode}
+              displayOption={d =>
+                intl.formatMessage({
+                  id: `compare.types.${d}`
+                })
+              }
+              selectedItems={config.compareType}
+              options={Object.values(COMPARE_TYPES)}
+              multiSelect={false}
+              searchable={false}
+              inputTheme={'secondary'}
+              getOptionValue={d => d}
+              onChange={option => {
+                const newConfig = {
+                  ...config,
+                  compareType: option
+                };
+                onChange(newConfig);
+              }}
+            />
+          </SidePanelSection>
+        </TooltipConfigWrapper>
+      );
+    }
+  }
+
+  return injectIntl(TooltipConfig);
 }
 
 export default TooltipConfigFactory;

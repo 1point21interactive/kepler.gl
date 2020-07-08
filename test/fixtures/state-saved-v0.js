@@ -1468,9 +1468,33 @@ export const mergedInteractions = {
     ...defaultInteraction.tooltip,
     enabled: true,
     config: {
+      compareMode: false,
+      compareType: 'absolute',
       fieldsToShow: {
-        '9h10t7fyb': ['int_range', 'detail', 'type_boolean'],
-        v79816te8: ['ID', 'ZIP_CODE']
+        '9h10t7fyb': [
+          {
+            name: 'int_range',
+            format: null
+          },
+          {
+            name: 'detail',
+            format: null
+          },
+          {
+            name: 'type_boolean',
+            format: null
+          }
+        ],
+        v79816te8: [
+          {
+            name: 'ID',
+            format: null
+          },
+          {
+            name: 'ZIP_CODE',
+            format: null
+          }
+        ]
       }
     }
   }

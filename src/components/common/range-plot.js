@@ -28,7 +28,7 @@ import {LineSeries, XYPlot, CustomSVGSeries, Hint, MarkSeries} from 'react-vis';
 import styled from 'styled-components';
 import classnames from 'classnames';
 
-import RangeBrush from './range-brush';
+import RangeBrushFactory from './range-brush';
 import {getTimeWidgetHintFormatter} from 'utils/filter-utils';
 
 const chartMargin = {top: 8, bottom: 0, left: 0, right: 0};
@@ -39,73 +39,80 @@ const histogramStyle = {
   unHighlightedW: 0.4
 };
 
-export default class RangePlot extends Component {
-  static propTypes = {
-    value: PropTypes.arrayOf(PropTypes.number).isRequired,
-    histogram: PropTypes.arrayOf(
-      PropTypes.shape({
-        x0: PropTypes.number,
-        x1: PropTypes.number
-      })
-    ),
-    lineChart: PropTypes.object,
-    plotType: PropTypes.string,
-    isEnlarged: PropTypes.bool,
-    onBlur: PropTypes.func,
-    width: PropTypes.number.isRequired
-  };
+RangePlotFactory.deps = [RangeBrushFactory];
 
-  state = {
-    hoveredDP: null
-  };
+export default function RangePlotFactory(RangeBrush) {
+  class RangePlot extends Component {
+    static propTypes = {
+      value: PropTypes.arrayOf(PropTypes.number).isRequired,
+      histogram: PropTypes.arrayOf(
+        PropTypes.shape({
+          x0: PropTypes.number,
+          x1: PropTypes.number
+        })
+      ),
+      lineChart: PropTypes.object,
+      plotType: PropTypes.string,
+      isEnlarged: PropTypes.bool,
+      onBlur: PropTypes.func,
+      width: PropTypes.number.isRequired
+    };
 
-  domainSelector = props => props.lineChart && props.lineChart.xDomain;
-  hintFormatter = createSelector(this.domainSelector, domain => getTimeWidgetHintFormatter(domain));
+    state = {
+      hoveredDP: null
+    };
 
-  onMouseMove = hoveredDP => {
-    this.setState({hoveredDP});
-  };
-
-  render() {
-    const {onBrush, range, value, width, plotType, lineChart, histogram} = this.props;
-    const domain = [histogram[0].x0, histogram[histogram.length - 1].x1];
-
-    const brushComponent = (
-      <RangeBrush domain={domain} onBrush={onBrush} range={range} value={value} width={width} />
+    domainSelector = props => props.lineChart && props.lineChart.xDomain;
+    hintFormatter = createSelector(this.domainSelector, domain =>
+      getTimeWidgetHintFormatter(domain)
     );
 
-    return (
-      <div
-        style={{
-          height: `${containerH}px`,
-          position: 'relative'
-        }}
-      >
-        {plotType === 'lineChart' ? (
-          <LineChart
-            hoveredDP={this.state.hoveredDP}
-            width={width}
-            height={containerH}
-            margin={chartMargin}
-            children={brushComponent}
-            onMouseMove={this.onMouseMove}
-            yDomain={lineChart.yDomain}
-            hintFormat={this.hintFormatter(this.props)}
-            data={lineChart.series}
-          />
-        ) : (
-          <Histogram
-            width={width}
-            height={chartH}
-            value={value}
-            margin={chartMargin}
-            histogram={histogram}
-            brushComponent={brushComponent}
-          />
-        )}
-      </div>
-    );
+    onMouseMove = hoveredDP => {
+      this.setState({hoveredDP});
+    };
+
+    render() {
+      const {onBrush, range, value, width, plotType, lineChart, histogram} = this.props;
+      const domain = [histogram[0].x0, histogram[histogram.length - 1].x1];
+
+      const brushComponent = (
+        <RangeBrush domain={domain} onBrush={onBrush} range={range} value={value} width={width} />
+      );
+
+      return (
+        <div
+          style={{
+            height: `${containerH}px`,
+            position: 'relative'
+          }}
+        >
+          {plotType === 'lineChart' ? (
+            <LineChart
+              hoveredDP={this.state.hoveredDP}
+              width={width}
+              height={containerH}
+              margin={chartMargin}
+              children={brushComponent}
+              onMouseMove={this.onMouseMove}
+              yDomain={lineChart.yDomain}
+              hintFormat={this.hintFormatter(this.props)}
+              data={lineChart.series}
+            />
+          ) : (
+            <Histogram
+              width={width}
+              height={chartH}
+              value={value}
+              margin={chartMargin}
+              histogram={histogram}
+              brushComponent={brushComponent}
+            />
+          )}
+        </div>
+      );
+    }
   }
+  return RangePlot;
 }
 
 const Histogram = ({width, height, margin, histogram, value, brushComponent}) => {

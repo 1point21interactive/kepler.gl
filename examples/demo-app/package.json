@@ -6,11 +6,8 @@
     "start-local-e2e": "webpack-dev-server --mode development --env.es6",
     "start-local-deck": "webpack-dev-server --mode development --env.es6 --env.deck --progress --hot --open",
     "start-local-deck-src": "webpack-dev-server --mode development --env.es6 --env.deck_src --progress --hot --open",
-    "start-local-https": "webpack-dev-server --mode development --https --env.es6 --progress --hot --open",
-    "build-clean": "rm -rf ./dist && mkdir dist",
-    "build-static": "cp -r ./src/static/* dist",
-    "build-script": "webpack -p --env.prod",
-    "build": "npm run build-clean && npm run build-static && npm run build-script"
+    "start-local-loaders-src": "webpack-dev-server --mode development --env.es6 --env.loaders_src --progress --hot --open",
+    "start-local-https": "webpack-dev-server --mode development --https --env.es6 --progress --hot --open"
   },
   "dependencies": {
     "@carto/toolkit": "0.0.1-rc.18",
@@ -18,7 +15,7 @@
     "dotenv": "^8.2.0",
     "dropbox": "^4.0.12",
     "global": "^4.3.0",
-    "kepler.gl": "^2.1.2",
+    "kepler.gl": "^2.3.0",
     "lodash.debounce": "^4.0.8",
     "lodash.get": "^4.4.2",
     "react": "^16.8.4",

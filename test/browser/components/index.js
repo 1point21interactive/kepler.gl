@@ -36,3 +36,4 @@ import './common';
 import './editor';
 import './map-container-test';
 import './geocoder-panel-test';
+import './tooltip-config-test';

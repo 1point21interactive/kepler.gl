@@ -24,8 +24,19 @@ import {
   ALL_FIELD_TYPES,
   TRIP_POINT_FIELDS
 } from 'constants/default-settings';
+import {
+  parseFieldValue,
+  getFormatter,
+  isNumber,
+  defaultFormatter,
+  notNullorUndefined
+} from 'utils/data-utils';
 import {Messages, Crosshairs, CursorClick, Pin} from 'components/common/icons/index';
+import {TOOLTIP_FORMATS, TOOLTIP_KEY, COMPARE_TYPES} from 'constants/tooltip';
 
+/**
+ * @type {typeof import('./interaction-utils').getDefaultInteraction}
+ */
 export function getDefaultInteraction() {
   return {
     tooltip: {
@@ -34,7 +45,9 @@ export function getDefaultInteraction() {
       enabled: true,
       iconComponent: Messages,
       config: {
-        fieldsToShow: {}
+        fieldsToShow: {},
+        compareMode: false,
+        compareType: COMPARE_TYPES.ABSOLUTE
       }
     },
     geocoder: {
@@ -68,10 +81,13 @@ export const BRUSH_CONFIG = {
   range: [0, 50]
 };
 
+/**
+ * @type {typeof import('./interaction-utils').findFieldsToShow}
+ */
 export function findFieldsToShow({fields, id}) {
   // first find default tooltip fields for trips
   const fieldsToShow = DEFAULT_TOOLTIP_FIELDS.reduce((prev, curr) => {
-    if (fields.find(({name}) => curr === name)) {
+    if (fields.find(({name}) => curr.name === name)) {
       prev.push(curr);
     }
     return prev;
@@ -96,9 +112,70 @@ function autoFindTooltipFields(fields) {
       type !== 'object'
   );
 
-  return fieldsToShow.slice(0, MAX_DEFAULT_TOOLTIPS).map(d => d.name);
+  return fieldsToShow.slice(0, MAX_DEFAULT_TOOLTIPS).map(({name}) => {
+    return {
+      name,
+      format: null
+    };
+  });
 }
 
 function _mergeFieldPairs(pairs) {
   return pairs.reduce((prev, pair) => [...prev, ...pair], []);
+}
+
+/**
+ * @type {typeof import('./interaction-utils').getTooltipDisplayDeltaValue}
+ */
+export function getTooltipDisplayDeltaValue({
+  primaryData,
+  field,
+  compareType,
+  data,
+  fieldIdx,
+  item
+}) {
+  let displayDeltaValue = null;
+
+  if (
+    primaryData &&
+    // comparison mode only works for numeric field
+    (field.type === ALL_FIELD_TYPES.integer || field.type === ALL_FIELD_TYPES.real)
+  ) {
+    const baseDp = primaryData[fieldIdx];
+    const dp = data[fieldIdx];
+    if (isNumber(baseDp) && isNumber(dp)) {
+      const deltaValue = compareType === COMPARE_TYPES.RELATIVE ? dp / baseDp - 1 : dp - baseDp;
+      const deltaFormat =
+        compareType === COMPARE_TYPES.RELATIVE
+          ? TOOLTIP_FORMATS.DECIMAL_PERCENT_FULL_2[TOOLTIP_KEY]
+          : (item.format || TOOLTIP_FORMATS.DECIMAL_DECIMAL_FIXED_3[TOOLTIP_KEY]);
+
+      displayDeltaValue = getFormatter(deltaFormat)(deltaValue);
+
+      // safely cast string
+      displayDeltaValue = defaultFormatter(displayDeltaValue);
+      const deltaFirstChar = displayDeltaValue.charAt(0);
+      if (deltaFirstChar !== '+' && deltaFirstChar !== '-') {
+        displayDeltaValue = `+${displayDeltaValue}`;
+      }
+    } else {
+      displayDeltaValue = '-';
+    }
+  }
+
+  return displayDeltaValue;
+}
+
+/**
+ * @type {typeof import('./interaction-utils').getTooltipDisplayValue}
+ */
+export function getTooltipDisplayValue({item, field, data, fieldIdx}) {
+  if (!notNullorUndefined(data[fieldIdx])) {
+    return '';
+  }
+
+  return item.format
+    ? getFormatter(item.format, field)(data[fieldIdx])
+    : parseFieldValue(data[fieldIdx], field.type);
 }

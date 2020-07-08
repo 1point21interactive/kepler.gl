@@ -41,6 +41,7 @@ import {
 } from 'test/fixtures/test-trip-data';
 import tripGeojson, {tripDataInfo} from 'test/fixtures/trip-geojson';
 import {processGeojson} from 'processors/data-processor';
+import {COMPARE_TYPES} from 'constants/tooltip';
 
 const geojsonFields = cloneDeep(fields);
 const geojsonRows = cloneDeep(rows);
@@ -374,6 +375,37 @@ function mockStateWithSplitMaps(state) {
   return prepareState;
 }
 
+function mockStateWithTooltipFormat() {
+  const initialState = mockStateWithFileUpload();
+
+  const oldConfig = initialState.visState.interactionConfig.tooltip;
+  const newConfig = {
+    ...oldConfig,
+    config: {
+      ...oldConfig.config,
+      compareMode: true,
+      compareType: COMPARE_TYPES.RELATIVE,
+      fieldsToShow: {
+        ...oldConfig.config.fieldsToShow,
+        [testCsvDataId]: [{name: 'gps_data.utc_timestamp', format: 'LL'}],
+        [testGeoJsonDataId]: [
+          {name: 'OBJECTID', format: null},
+          {name: 'ZIP_CODE', format: null},
+          {name: 'ID', format: null},
+          {name: 'TRIPS', format: '.3f'},
+          {name: 'RATE', format: null}
+        ]
+      }
+    }
+  };
+
+  const prepareState = applyActions(keplerGlReducer, initialState, [
+    {action: VisStateActions.interactionConfigChange, payload: [newConfig]}
+  ]);
+
+  return prepareState;
+}
+
 // saved hexagon layer
 export const expectedSavedLayer0 = {
   id: 'hexagon-2',
@@ -652,6 +684,7 @@ export const StateWCustomMapStyle = mockStateWithCustomMapStyle();
 export const StateWSplitMaps = mockStateWithSplitMaps();
 export const StateWTrips = mockStateWithTripData();
 export const StateWTripGeojson = mockStateWithTripGeojson();
+export const StateWTooltipFormat = mockStateWithTooltipFormat();
 
 export const expectedSavedTripLayer = {
   id: 'trip-0',

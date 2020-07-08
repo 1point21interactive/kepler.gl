@@ -504,8 +504,30 @@ test('VisStateMerger.v0 -> mergeInteractions -> toEmptyState', t => {
         {
           tooltip: {
             fieldsToShow: {
-              '9h10t7fyb': ['int_range', 'detail', 'type_boolean'],
-              v79816te8: ['ID', 'ZIP_CODE']
+              '9h10t7fyb': [
+                {
+                  name: 'int_range',
+                  format: null
+                },
+                {
+                  name: 'detail',
+                  format: null
+                },
+                {
+                  name: 'type_boolean',
+                  format: null
+                }
+              ],
+              v79816te8: [
+                {
+                  name: 'ID',
+                  format: null
+                },
+                {
+                  name: 'ZIP_CODE',
+                  format: null
+                }
+              ]
             },
             enabled: true
           }
@@ -545,7 +567,24 @@ test('VisStateMerger.v0 -> mergeInteractions -> toWorkingState', t => {
     ...oldVisState.interactionToBeMerged,
     tooltip: {
       fieldsToShow: {
-        milkshake: ['have', 'a', 'good', 'day']
+        milkshake: [
+          {
+            name: 'have',
+            format: null
+          },
+          {
+            name: 'a',
+            format: null
+          },
+          {
+            name: 'good',
+            format: null
+          },
+          {
+            name: 'day',
+            format: null
+          }
+        ]
       }
     }
   };
@@ -560,8 +599,30 @@ test('VisStateMerger.v0 -> mergeInteractions -> toWorkingState', t => {
   const expectedInteractionToBeMerged = {
     tooltip: {
       fieldsToShow: {
-        '9h10t7fyb': ['int_range', 'detail', 'type_boolean'],
-        v79816te8: ['ID', 'ZIP_CODE']
+        '9h10t7fyb': [
+          {
+            name: 'int_range',
+            format: null
+          },
+          {
+            name: 'detail',
+            format: null
+          },
+          {
+            name: 'type_boolean',
+            format: null
+          }
+        ],
+        v79816te8: [
+          {
+            name: 'ID',
+            format: null
+          },
+          {
+            name: 'ZIP_CODE',
+            format: null
+          }
+        ]
       },
       enabled: true
     }
@@ -591,17 +652,77 @@ test('VisStateMerger.v0 -> mergeInteractions -> toWorkingState', t => {
       ...defaultInteraction.tooltip,
       enabled: true,
       config: {
+        compareMode: false,
+        compareType: 'absolute',
         fieldsToShow: {
           [testCsvDataId]: [
-            'gps_data.utc_timestamp',
-            'gps_data.types',
-            'epoch',
-            'has_result',
-            'id'
+            {
+              name: 'gps_data.utc_timestamp',
+              format: null
+            },
+            {
+              name: 'gps_data.types',
+              format: null
+            },
+            {
+              name: 'epoch',
+              format: null
+            },
+            {
+              name: 'has_result',
+              format: null
+            },
+            {
+              name: 'id',
+              format: null
+            }
           ],
-          [testGeoJsonDataId]: ['OBJECTID', 'ZIP_CODE', 'ID', 'TRIPS', 'RATE'],
-          '9h10t7fyb': ['int_range', 'detail', 'type_boolean'],
-          v79816te8: ['ID', 'ZIP_CODE']
+          [testGeoJsonDataId]: [
+            {
+              name: 'OBJECTID',
+              format: null
+            },
+            {
+              name: 'ZIP_CODE',
+              format: null
+            },
+            {
+              name: 'ID',
+              format: null
+            },
+            {
+              name: 'TRIPS',
+              format: null
+            },
+            {
+              name: 'RATE',
+              format: null
+            }
+          ],
+          '9h10t7fyb': [
+            {
+              name: 'int_range',
+              format: null
+            },
+            {
+              name: 'detail',
+              format: null
+            },
+            {
+              name: 'type_boolean',
+              format: null
+            }
+          ],
+          v79816te8: [
+            {
+              name: 'ID',
+              format: null
+            },
+            {
+              name: 'ZIP_CODE',
+              format: null
+            }
+          ]
         }
       }
     }
@@ -633,7 +754,20 @@ test('VisStateMerger.v1 -> mergeInteractions -> toEmptyState', t => {
         {
           tooltip: {
             fieldsToShow: {
-              a5ybmwl2d: ['a_zip', 'str_type', 'int_type']
+              a5ybmwl2d: [
+                {
+                  name: 'a_zip',
+                  format: null
+                },
+                {
+                  name: 'str_type',
+                  format: null
+                },
+                {
+                  name: 'int_type',
+                  format: null
+                }
+              ]
             },
             enabled: false
           }
@@ -649,7 +783,9 @@ test('VisStateMerger.v1 -> mergeInteractions -> toEmptyState', t => {
             ...defaultInteraction.tooltip,
             enabled: false,
             config: {
-              fieldsToShow: {}
+              fieldsToShow: {},
+              compareMode: false,
+              compareType: 'absolute'
             }
           },
           brush: {
@@ -689,7 +825,24 @@ test('VisStateMerger.v1 -> mergeInteractions -> toWorkingState', t => {
     ...oldVisState.interactionToBeMerged,
     tooltip: {
       fieldsToShow: {
-        milkshake: ['have', 'a', 'good', 'day']
+        milkshake: [
+          {
+            name: 'have',
+            format: null
+          },
+          {
+            name: 'a',
+            format: null
+          },
+          {
+            name: 'good',
+            format: null
+          },
+          {
+            name: 'day',
+            format: null
+          }
+        ]
       }
     }
   };
@@ -705,7 +858,20 @@ test('VisStateMerger.v1 -> mergeInteractions -> toWorkingState', t => {
   const expectedInteractionToBeMerged = {
     tooltip: {
       fieldsToShow: {
-        a5ybmwl2d: ['a_zip', 'str_type', 'int_type']
+        a5ybmwl2d: [
+          {
+            name: 'a_zip',
+            format: null
+          },
+          {
+            name: 'str_type',
+            format: null
+          },
+          {
+            name: 'int_type',
+            format: null
+          }
+        ]
       },
       enabled: false
     }
@@ -727,15 +893,53 @@ test('VisStateMerger.v1 -> mergeInteractions -> toWorkingState', t => {
             ...defaultInteraction.tooltip,
             enabled: false,
             config: {
+              compareMode: false,
+              compareType: 'absolute',
               fieldsToShow: {
                 [testCsvDataId]: [
-                  'gps_data.utc_timestamp',
-                  'gps_data.types',
-                  'epoch',
-                  'has_result',
-                  'id'
+                  {
+                    name: 'gps_data.utc_timestamp',
+                    format: null
+                  },
+                  {
+                    name: 'gps_data.types',
+                    format: null
+                  },
+                  {
+                    name: 'epoch',
+                    format: null
+                  },
+                  {
+                    name: 'has_result',
+                    format: null
+                  },
+                  {
+                    name: 'id',
+                    format: null
+                  }
                 ],
-                [testGeoJsonDataId]: ['OBJECTID', 'ZIP_CODE', 'ID', 'TRIPS', 'RATE']
+                [testGeoJsonDataId]: [
+                  {
+                    name: 'OBJECTID',
+                    format: null
+                  },
+                  {
+                    name: 'ZIP_CODE',
+                    format: null
+                  },
+                  {
+                    name: 'ID',
+                    format: null
+                  },
+                  {
+                    name: 'TRIPS',
+                    format: null
+                  },
+                  {
+                    name: 'RATE',
+                    format: null
+                  }
+                ]
               }
             }
           },
@@ -771,16 +975,67 @@ test('VisStateMerger.v1 -> mergeInteractions -> toWorkingState', t => {
       ...defaultInteraction.tooltip,
       enabled: false,
       config: {
+        compareMode: false,
+        compareType: 'absolute',
         fieldsToShow: {
           [testCsvDataId]: [
-            'gps_data.utc_timestamp',
-            'gps_data.types',
-            'epoch',
-            'has_result',
-            'id'
+            {
+              name: 'gps_data.utc_timestamp',
+              format: null
+            },
+            {
+              name: 'gps_data.types',
+              format: null
+            },
+            {
+              name: 'epoch',
+              format: null
+            },
+            {
+              name: 'has_result',
+              format: null
+            },
+            {
+              name: 'id',
+              format: null
+            }
           ],
-          [testGeoJsonDataId]: ['OBJECTID', 'ZIP_CODE', 'ID', 'TRIPS', 'RATE'],
-          a5ybmwl2d: ['a_zip', 'str_type', 'int_type']
+          [testGeoJsonDataId]: [
+            {
+              name: 'OBJECTID',
+              format: null
+            },
+            {
+              name: 'ZIP_CODE',
+              format: null
+            },
+            {
+              name: 'ID',
+              format: null
+            },
+            {
+              name: 'TRIPS',
+              format: null
+            },
+            {
+              name: 'RATE',
+              format: null
+            }
+          ],
+          a5ybmwl2d: [
+            {
+              name: 'a_zip',
+              format: null
+            },
+            {
+              name: 'str_type',
+              format: null
+            },
+            {
+              name: 'int_type',
+              format: null
+            }
+          ]
         }
       }
     },
@@ -861,8 +1116,31 @@ test('VisStateMerger.v1 -> mergeInteractions -> coordinate', t => {
       ...defaultInteraction.tooltip,
       enabled: false,
       config: {
+        compareMode: false,
+        compareType: 'absolute',
         fieldsToShow: {
-          a5ybmwl2d: ['a_zip', 'zip_area', 'avg_number', 'str_type', 'int_type']
+          a5ybmwl2d: [
+            {
+              name: 'a_zip',
+              format: null
+            },
+            {
+              name: 'zip_area',
+              format: null
+            },
+            {
+              name: 'avg_number',
+              format: null
+            },
+            {
+              name: 'str_type',
+              format: null
+            },
+            {
+              name: 'int_type',
+              format: null
+            }
+          ]
         }
       }
     },
