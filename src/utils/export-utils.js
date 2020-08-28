@@ -223,6 +223,7 @@ export async function publishHtml(state, options) {
       (userMapboxToken || '') !== '' ? userMapboxToken : exportMapboxAccessToken,
     mode
   };
+  console.log(data);
 
   const html = exportMapToHTML(data);
 

@@ -272,77 +272,88 @@ export const DEFAULT_MAP_STYLES = [
     label: 'Black and Blue',
     url: `mapbox://styles/highrankwebsites/cjk19z57a7q442rlw5cxtymrc`,
     icon: 'https://i.imgur.com/QLktuXR.png',
-    layerGroups: DEFAULT_LAYER_GROUPS
+    layerGroups: DEFAULT_LAYER_GROUPS,
+    custom: true
   },
   {
     id: 'thomas_guide',
     label: 'Thomas Guide',
     url: `mapbox://styles/highrankwebsites/cjf6xubqe1t4a2rp0l3b2lhl2`,
     icon: 'https://i.imgur.com/xWCz0I9.png',
-    layerGroups: DEFAULT_LAYER_GROUPS
+    layerGroups: DEFAULT_LAYER_GROUPS,
+    custom: true
   },
   {
     id: 'go_green',
     label: 'Go Green',
     url: `mapbox://styles/highrankwebsites/cjf6xxdox2vpi2qpalpcy9f86`,
     icon: 'https://i.imgur.com/61GFqMm.png',
-    layerGroups: DEFAULT_LAYER_GROUPS
+    layerGroups: DEFAULT_LAYER_GROUPS,
+    custom: true
   },
   {
     id: 'blue_steel',
     label: 'Blue Steel',
     url: `mapbox://styles/highrankwebsites/cjdyqyj9x4h6g2rn0pvz8pdwd`,
     icon: 'https://i.imgur.com/JOmKJjw.png',
-    layerGroups: DEFAULT_LAYER_GROUPS
+    layerGroups: DEFAULT_LAYER_GROUPS,
+    custom: true
   },
   {
     id: 'green_lantern',
     label: 'Green Lantern',
     url: `mapbox://styles/highrankwebsites/cjee8ckck14392tmuxqxh6kq6`,
     icon: 'https://i.imgur.com/xQlRbnm.png',
-    layerGroups: DEFAULT_LAYER_GROUPS
+    layerGroups: DEFAULT_LAYER_GROUPS,
+    custom: true
   },
   {
     id: 'dark_usa_only',
     label: 'Dark USA only',
     url: `mapbox://styles/highrankwebsites/ckau5x1cl0d7t1io6tpcvev9p`,
     icon: 'https://i.imgur.com/w6k2GIW.png',
-    layerGroups: DEFAULT_LAYER_GROUPS
+    layerGroups: DEFAULT_LAYER_GROUPS,
+    custom: true
   },
   {
     id: 'white_usa_only',
     label: 'White USA Only',
     url: `mapbox://styles/highrankwebsites/ckau5wa9y2s0w1io1xnet7n26`,
     icon: 'https://i.imgur.com/fNFRrQt.png',
-    layerGroups: DEFAULT_LAYER_GROUPS
+    layerGroups: DEFAULT_LAYER_GROUPS,
+    custom: true
   },
   {
     id: 'midnight',
     label: 'Midnight',
     url: `mapbox://styles/highrankwebsites/ckau2gebi1ya61ip240oe5ga0`,
     icon: 'https://i.imgur.com/GlzMmU2.png',
-    layerGroups: DEFAULT_LAYER_GROUPS
+    layerGroups: DEFAULT_LAYER_GROUPS,
+    custom: true
   },
   {
     id: 'grey_day',
     label: 'Grey Day',
     url: `mapbox://styles/highrankwebsites/ckau27prq1bba1ilhmciz0tvd`,
     icon: 'https://i.imgur.com/UMT3QUE.png',
-    layerGroups: DEFAULT_LAYER_GROUPS
+    layerGroups: DEFAULT_LAYER_GROUPS,
+    custome: true
   },
   {
     id: 'darker_blues',
     label: 'Darker Blues',
     url: `mapbox://styles/highrankwebsites/cjk19z57a7q442rlw5cxtymrc`,
     icon: 'https://i.imgur.com/WPMZraM.png',
-    layerGroups: DEFAULT_LAYER_GROUPS
+    layerGroups: DEFAULT_LAYER_GROUPS,
+    custom: true
   },
   {
     id: 'sunday_bloody_sunday',
-    label: 'Sunday Bloody Sunday',
     url: `mapbox://styles/highrankwebsites/cjk09kzlw0rtk2sqzk2a7x3tz`,
     icon: 'https://i.imgur.com/lkEZFP2.png',
-    layerGroups: DEFAULT_LAYER_GROUPS
+    layerGroups: DEFAULT_LAYER_GROUPS,
+    custom: true,
+    label: 'Sunday Bloody Sunday'
   }
 ];
 
