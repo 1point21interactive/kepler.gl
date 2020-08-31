@@ -182,6 +182,20 @@ export const LAYER_VIS_CONFIGS = {
     group: PROPERTY_GROUPS.display,
     property: 'outline'
   },
+  highlight: {
+    type: 'boolean',
+    defaultValue: true,
+    label: 'layer.highlightColor',
+    group: PROPERTY_GROUPS.display,
+    property: 'highlight'
+  },
+  highlightColor: {
+    type: 'color-select',
+    label: 'layerVisConfigs.highlightColor',
+    defaultValue: null,
+    group: PROPERTY_GROUPS.color,
+    property: 'highlightColor'
+  },
   colorRange: {
     type: 'color-range-select',
     defaultValue: DefaultColorRange,

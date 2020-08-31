@@ -116,6 +116,7 @@ export default function LayerConfiguratorFactory(
       layerChannelConfigProps,
       layerConfiguratorProps
     }) {
+      console.log(layer);
       return (
         <StyledLayerVisualConfigurator>
           {/* Fill Color */}
@@ -137,6 +138,20 @@ export default function LayerConfiguratorFactory(
               <VisConfigSlider {...layer.visConfigSettings.opacity} {...visConfiguratorProps} />
             </ConfigGroupCollapsibleContent>
           </LayerConfigGroup>
+
+          {/* Highlight Color */}
+          {layer.type === LAYER_TYPES.point ? (
+            <LayerConfigGroup
+              {...(layer.visConfigSettings.highlight || {label: 'layer.highlightColor'})}
+              {...visConfiguratorProps}
+            >
+              <LayerColorSelector
+                {...layerConfiguratorProps}
+                selectedColor={layer.config.highlightColor}
+                property="highlightColor"
+              />
+            </LayerConfigGroup>
+          ) : null}
 
           {/* outline color */}
           {layer.type === LAYER_TYPES.point ? (
@@ -974,7 +989,10 @@ export const LayerColorSelector = ({
       colorSets={[
         {
           selectedColor: selectedColor || layer.config.color,
-          setColor: rgbValue => onChange({[property]: rgbValue})
+          setColor: rgbValue => {
+            console.log(property, rgbValue);
+            return onChange({[property]: rgbValue});
+          }
         }
       ]}
       colorUI={layer.config.colorUI[property]}

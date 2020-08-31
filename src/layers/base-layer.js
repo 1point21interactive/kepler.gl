@@ -294,7 +294,7 @@ export default class Layer {
       columns: props.columns || null,
       isVisible: props.isVisible || false,
       isConfigActive: props.isConfigActive || false,
-      highlightColor: props.highlightColor || [252, 242, 26, 255],
+      highlightColor: props.highlightColor || [0, 0, 0],
       hidden: props.hidden || false,
 
       // TODO: refactor this into separate visual Channel config
@@ -530,6 +530,8 @@ export default class Layer {
   }
 
   updateLayerConfig(newConfig) {
+    console.log('=====Update Layer Config========');
+    console.log(this.config, newConfig);
     this.config = {...this.config, ...newConfig};
     return this;
   }

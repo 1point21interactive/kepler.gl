@@ -56,7 +56,8 @@ export const pointVisConfigs = {
     label: 'layer.fillColor',
     defaultValue: true,
     property: 'filled'
-  }
+  },
+  highlightColor: 'highlightColor'
 };
 
 export default class PointLayer extends Layer {
