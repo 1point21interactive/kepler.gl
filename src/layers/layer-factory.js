@@ -189,6 +189,13 @@ export const LAYER_VIS_CONFIGS = {
     group: PROPERTY_GROUPS.display,
     property: 'highlight'
   },
+  highlightColorRange: {
+    type: 'color-range-select',
+    label: 'layerVisConfigs.highlightColorRange',
+    defaultValue: DefaultColorRange,
+    group: PROPERTY_GROUPS.color,
+    property: 'highlightColorRange'
+  },
   highlightColor: {
     type: 'color-select',
     label: 'layerVisConfigs.highlightColor',

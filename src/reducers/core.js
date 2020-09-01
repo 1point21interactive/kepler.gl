@@ -28,14 +28,15 @@ import {providerStateReducerFactory} from './provider-state';
 
 import composers from './composers';
 
-const combined = (initialState = {}) =>
-  combineReducers({
+const combined = (initialState = {}) => {
+  return combineReducers({
     visState: visStateReducerFactory(initialState.visState),
     mapState: mapStateReducerFactory(initialState.mapState),
     mapStyle: mapStyleReducerFactory(initialState.mapStyle),
     uiState: uiStateReducerFactory(initialState.uiState),
     providerState: providerStateReducerFactory(initialState.providerState)
   });
+};
 
 export const coreReducerFactory = (initialState = {}) => (state, action) => {
   if (composers[action.type]) {

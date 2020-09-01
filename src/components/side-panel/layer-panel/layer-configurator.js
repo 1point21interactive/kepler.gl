@@ -116,7 +116,6 @@ export default function LayerConfiguratorFactory(
       layerChannelConfigProps,
       layerConfiguratorProps
     }) {
-      console.log(layer);
       return (
         <StyledLayerVisualConfigurator>
           {/* Fill Color */}
@@ -144,12 +143,24 @@ export default function LayerConfiguratorFactory(
             <LayerConfigGroup
               {...(layer.visConfigSettings.highlight || {label: 'layer.highlightColor'})}
               {...visConfiguratorProps}
+              collapsible
             >
-              <LayerColorSelector
-                {...layerConfiguratorProps}
-                selectedColor={layer.config.highlightColor}
-                property="highlightColor"
-              />
+              {layer.config.highlightColorField ? (
+                <LayerColorRangeSelector {...visConfiguratorProps} property="highlightColorRange" />
+              ) : (
+                <LayerColorSelector
+                  {...visConfiguratorProps}
+                  selectedColor={layer.config.visConfig.highlightColor}
+                  property="highlightColor"
+                />
+              )}
+
+              <ConfigGroupCollapsibleContent>
+                <ChannelByValueSelector
+                  channel={layer.visualChannels.highlightColor}
+                  {...layerChannelConfigProps}
+                ></ChannelByValueSelector>
+              </ConfigGroupCollapsibleContent>
             </LayerConfigGroup>
           ) : null}
 
@@ -990,7 +1001,6 @@ export const LayerColorSelector = ({
         {
           selectedColor: selectedColor || layer.config.color,
           setColor: rgbValue => {
-            console.log(property, rgbValue);
             return onChange({[property]: rgbValue});
           }
         }

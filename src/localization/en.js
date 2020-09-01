@@ -25,6 +25,7 @@ export default {
     weight: 'weight',
     label: 'label',
     fillColor: 'fill color',
+    highlightColor: 'highlight color',
     color: 'color',
     coverage: 'coverage',
     strokeColor: 'stroke color',

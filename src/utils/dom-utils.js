@@ -166,7 +166,6 @@ export function makeImage(uri) {
     };
     image.onerror = err => {
       const message = IMAGE_EXPORT_ERRORS.dataUri;
-      console.log(uri);
       // error is an Event Object
       // https://www.w3schools.com/jsref/obj_event.asp
       reject({event: err, message});

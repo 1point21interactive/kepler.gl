@@ -101,6 +101,16 @@ export default class PointLayer extends Layer {
         ...super.visualChannels.color,
         condition: config => config.visConfig.filled
       },
+      highlightColor: {
+        property: 'highlightColor',
+        key: 'highlightColor',
+        domain: 'highlightColorDomain',
+        field: 'highlightColorField',
+        range: 'highlightColorRange',
+        scale: 'highlightColorScale',
+        channelScaleType: CHANNEL_SCALES.color,
+        condition: config => config.visConfig.highlight
+      },
       strokeColor: {
         property: 'strokeColor',
         field: 'strokeColorField',
@@ -163,7 +173,11 @@ export default class PointLayer extends Layer {
       // add stroke color visual channel
       strokeColorField: null,
       strokeColorDomain: [0, 1],
-      strokeColorScale: 'quantile'
+      strokeColorScale: 'quantile',
+      // add highlight color visual channel
+      highlightColorField: null,
+      highlightColorDomain: [0, 1],
+      highlightColorScale: 'quantile'
     };
   }
 
@@ -295,6 +309,12 @@ export default class PointLayer extends Layer {
         colorRange: this.config.visConfig.strokeColorRange,
         colorScale: this.config.strokeColorScale
       },
+      getHighlightColor: {
+        color: this.config.visConfig.highlightColor,
+        colorField: this.config.highlightColorField,
+        colorRange: this.config.visConfig.highlightColorRange,
+        colorScale: this.config.highlightColorScale
+      },
       getFilterValue: gpuFilter.filterValueUpdateTriggers
     };
 
@@ -309,7 +329,7 @@ export default class PointLayer extends Layer {
       filterRange: defaultLayerProps.filterRange,
       ...brushingProps
     };
-
+    console.log(this.config);
     return [
       new ScatterplotLayer({
         ...defaultLayerProps,
@@ -331,8 +351,8 @@ export default class PointLayer extends Layer {
               ...this.getDefaultHoverLayerProps(),
               ...layerProps,
               data: [objectHovered.object],
-              getLineColor: this.config.highlightColor,
-              getFillColor: this.config.highlightColor,
+              getLineColor: this.config.visConfig.highlightColor,
+              getFillColor: this.config.visConfig.highlightColor,
               getRadius: data.getRadius,
               getPosition: data.getPosition
             })

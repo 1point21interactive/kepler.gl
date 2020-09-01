@@ -65,7 +65,7 @@ export const exportMapToHTML = (options, version = KEPLER_GL_VERSION) => {
         <script src="https://unpkg.com/styled-components@4.1.3/dist/styled-components.min.js" crossorigin></script>
 
         <!-- Load Kepler.gl -->
-        <script src="https://unpkg.com/kepler.gl@${version}/umd/keplergl.min.js" crossorigin></script>
+        <script src="https://www.1point21interactive.com/maps/scripts/keplergl.min.js" crossorigin></script>
 
         <style type="text/css">
           body {margin: 0; padding: 0; overflow: hidden;}

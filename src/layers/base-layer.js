@@ -530,8 +530,6 @@ export default class Layer {
   }
 
   updateLayerConfig(newConfig) {
-    console.log('=====Update Layer Config========');
-    console.log(this.config, newConfig);
     this.config = {...this.config, ...newConfig};
     return this;
   }
