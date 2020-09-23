@@ -128,14 +128,14 @@ export const OVERWRITE_MAP_ID = 'overwriteMap';
  */
 export const SHARE_MAP_ID = 'shareMap';
 
-export const KEPLER_GL_NAME = 'kepler.gl';
+export const KEPLER_GL_NAME = 'Geospatial Analysis';
 
 // __PACKAGE_VERSION__ is automatically injected by Babel/Webpack during the building process
 // Since we are injecting this during the build process with babel
 // while developing VERSION is not defined, we capture the exception and return
 // an empty string which will allow us to retrieve the latest umd version
-export const KEPLER_GL_VERSION = '__PACKAGE_VERSION__';
-export const KEPLER_GL_WEBSITE = 'http://kepler.gl/';
+export const KEPLER_GL_VERSION = '';
+export const KEPLER_GL_WEBSITE = 'https://www.1point21interactive.com/';
 
 export const DIMENSIONS = {
   sidePanel: {

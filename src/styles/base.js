@@ -55,7 +55,7 @@ export const activeColor = '#1FBAD6';
 export const activeColorLT = '#2473BD';
 export const activeColorHover = '#108188';
 export const errorColor = '#F9042C';
-export const logoColor = activeColor;
+export const logoColor = '#6a7485';
 
 // Button
 export const primaryBtnBgd = '#0F9668';

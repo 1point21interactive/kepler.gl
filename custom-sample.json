@@ -3,7 +3,7 @@
     "id": "uscounties",
     "label": "US Counties",
     "queryType": "sample",
-    "imageUrl": "https://sfo2.digitaloceanspaces.com/map-images/us_counties.PNG?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=JBMYJ27VMT7P4JLOJX6K%2F20200605%2Fsfo2%2Fs3%2Faws4_request&X-Amz-Date=20200605T172128Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=3a1a42327ac4181b1f70d36b30951767aafca8bcc2486815fbfdee905bc7e86a",
+    "imageUrl": "https://map-images.sfo2.digitaloceanspaces.com/us_counties.PNG",
     "description": "",
     "detail": "",
     "size": 3233,
