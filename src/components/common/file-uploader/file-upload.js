@@ -277,9 +277,7 @@ function FileUploadFactory() {
                       </StyledDragFileWrapper>
                     ) : null}
 
-                    <StyledDisclaimer>
-                      <FormattedMessage id={'fileUploader.disclaimer'} />
-                    </StyledDisclaimer>
+
                   </>
                 )}
               </StyledFileDrop>
