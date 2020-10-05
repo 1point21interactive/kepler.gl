@@ -60,6 +60,11 @@ const SidePanelContent = styled.div`
   }
 `;
 
+const KeplerLogo = styled.div`
+  position: absolute;
+  bottom: 35px;
+`;
+
 export const PanelTitleFactory = () => styled.div`
   color: ${props => props.theme.titleTextColor};
   font-size: 20px;
@@ -309,6 +314,11 @@ export default function SidePanelFactory(
                     activeSidePanel={activeSidePanel}
                   />
                 ) : null}
+                <KeplerLogo>
+                  <a href="https://kepler.gl/" target="_blank">
+                    <img src="https://i.imgur.com/YaIlzrm.jpeg"></img>
+                  </a>
+                </KeplerLogo>
               </div>
             </SidePanelContent>
           </Sidebar>
